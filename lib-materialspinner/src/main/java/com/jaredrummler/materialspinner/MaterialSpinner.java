@@ -145,9 +145,24 @@ public class MaterialSpinner extends TextView {
     setClickable(true);
     setBackgroundResource(R.drawable.ms__selector);
 
-    if (isInEditMode()) {
-      return;
+    hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
+    if (!hideArrow) {
+      Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.ms__arrow);
+      int resId = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, -1);
+      if (basicDrawable != null) {
+        arrowDrawable = DrawableCompat.wrap(basicDrawable);
+        if (resId != -1) {
+          DrawableCompat.setTint(arrowDrawable, resId);
+        }
+      }
+      if (rtl) {
+        setCompoundDrawablesWithIntrinsicBounds(arrowDrawable, null, null, null);
+      } else {
+        setCompoundDrawablesWithIntrinsicBounds(null, null, arrowDrawable, null);
+      }
     }
+
+    typedArray.recycle();
 
     listView = new ListView(context);
     // Set the spinner's id into the listview to make it pretend to be the right parent in
@@ -199,25 +214,6 @@ public class MaterialSpinner extends TextView {
         }
       }
     });
-
-    hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
-    if (!hideArrow) {
-      Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.ms__arrow);
-      int resId = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, -1);
-      if (basicDrawable != null) {
-        arrowDrawable = DrawableCompat.wrap(basicDrawable);
-        if (resId != -1) {
-          DrawableCompat.setTint(arrowDrawable, resId);
-        }
-      }
-      if (rtl) {
-        setCompoundDrawablesWithIntrinsicBounds(arrowDrawable, null, null, null);
-      } else {
-        setCompoundDrawablesWithIntrinsicBounds(null, null, arrowDrawable, null);
-      }
-    }
-
-    typedArray.recycle();
   }
 
   public int getSelectedIndex() {
