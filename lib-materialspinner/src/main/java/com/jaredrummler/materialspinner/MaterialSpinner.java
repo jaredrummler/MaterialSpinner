@@ -143,7 +143,7 @@ public class MaterialSpinner extends TextView {
     setPadding(left, top, right, bottom);
 
     setClickable(true);
-    setBackgroundResource(R.drawable.selector);
+    setBackgroundResource(R.drawable.ms__selector);
 
     if (isInEditMode()) {
       return;
@@ -186,9 +186,9 @@ public class MaterialSpinner extends TextView {
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       popupWindow.setElevation(DEFAULT_ELEVATION);
-      popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.spinner_drawable));
+      popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ms__drawable));
     } else {
-      popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.drop_down_shadow));
+      popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ms__drop_down_shadow));
     }
 
     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -200,10 +200,10 @@ public class MaterialSpinner extends TextView {
       }
     });
 
-    hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_hideArrow, false);
+    hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
     if (!hideArrow) {
-      Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.arrow);
-      int resId = typedArray.getColor(R.styleable.MaterialSpinner_arrowTint, -1);
+      Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.ms__arrow);
+      int resId = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, -1);
       if (basicDrawable != null) {
         arrowDrawable = DrawableCompat.wrap(basicDrawable);
         if (resId != -1) {

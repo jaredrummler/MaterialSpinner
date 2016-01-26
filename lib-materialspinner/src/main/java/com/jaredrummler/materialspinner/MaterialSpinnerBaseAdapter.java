@@ -39,10 +39,10 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
     TextView textView;
 
     if (convertView == null) {
-      convertView = View.inflate(context, R.layout.spinner_list_item, null);
+      convertView = View.inflate(context, R.layout.ms__list_item, null);
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-        textView.setBackground(ContextCompat.getDrawable(context, R.drawable.selector));
+        textView.setBackground(ContextCompat.getDrawable(context, R.drawable.ms__selector));
       }
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
         Configuration config = context.getResources().getConfiguration();
