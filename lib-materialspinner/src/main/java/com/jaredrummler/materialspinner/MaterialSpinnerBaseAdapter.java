@@ -18,6 +18,7 @@
 package com.jaredrummler.materialspinner;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -42,6 +43,12 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         textView.setBackground(ContextCompat.getDrawable(context, R.drawable.selector));
+      }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        Configuration config = context.getResources().getConfiguration();
+        if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+          textView.setTextDirection(View.TEXT_DIRECTION_RTL);
+        }
       }
       convertView.setTag(new ViewHolder(textView));
     } else {

@@ -18,7 +18,9 @@
 package com.jaredrummler.materialspinner;
 
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -119,11 +121,27 @@ public class MaterialSpinner extends TextView {
   private void init(Context context, AttributeSet attrs) {
     Resources resources = getResources();
     TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialSpinner);
-    int defaultPadding = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
+    setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
 
-    setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-    setPadding(resources.getDimensionPixelSize(R.dimen.three_grid_unit), defaultPadding, defaultPadding,
-        defaultPadding);
+    boolean rtl = false;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      Configuration config = getResources().getConfiguration();
+      rtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+      if (rtl) {
+        setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+        setTextDirection(View.TEXT_DIRECTION_RTL);
+      }
+    }
+
+    int left, right, bottom, top;
+    left = right = bottom = top = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
+    if (rtl) {
+      right = resources.getDimensionPixelSize(R.dimen.three_grid_unit);
+    } else {
+      left = resources.getDimensionPixelSize(R.dimen.three_grid_unit);
+    }
+    setPadding(left, top, right, bottom);
+
     setClickable(true);
     setBackgroundResource(R.drawable.selector);
 
@@ -186,15 +204,17 @@ public class MaterialSpinner extends TextView {
     if (!hideArrow) {
       Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.arrow);
       int resId = typedArray.getColor(R.styleable.MaterialSpinner_arrowTint, -1);
-
       if (basicDrawable != null) {
         arrowDrawable = DrawableCompat.wrap(basicDrawable);
-
         if (resId != -1) {
           DrawableCompat.setTint(arrowDrawable, resId);
         }
       }
-      setCompoundDrawablesWithIntrinsicBounds(null, null, arrowDrawable, null);
+      if (rtl) {
+        setCompoundDrawablesWithIntrinsicBounds(arrowDrawable, null, null, null);
+      } else {
+        setCompoundDrawablesWithIntrinsicBounds(null, null, arrowDrawable, null);
+      }
     }
 
     typedArray.recycle();
@@ -289,6 +309,15 @@ public class MaterialSpinner extends TextView {
     if (arrowDrawable != null && !hideArrow) {
       DrawableCompat.setTint(arrowDrawable, getResources().getColor(resId));
     }
+  }
+
+  @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+  private boolean isRTL() {
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+      return false;
+    }
+    Configuration config = getResources().getConfiguration();
+    return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
   }
 
 }

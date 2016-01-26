@@ -21,10 +21,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="left|center_vertical"
+    android:layout_gravity="start|center_vertical"
     android:ellipsize="marquee"
     android:paddingBottom="@dimen/one_and_a_half_grid_unit"
     android:paddingLeft="@dimen/three_grid_unit"
+    android:paddingRight="@dimen/three_grid_unit"
+    android:paddingStart="@dimen/three_grid_unit"
     android:paddingTop="@dimen/one_and_a_half_grid_unit"
     android:singleLine="true"
     android:textSize="15sp"/>
+
