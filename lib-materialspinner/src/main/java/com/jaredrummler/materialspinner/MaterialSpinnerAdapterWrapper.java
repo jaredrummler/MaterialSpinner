@@ -20,7 +20,7 @@ package com.jaredrummler.materialspinner;
 import android.content.Context;
 import android.widget.ListAdapter;
 
-public class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
+final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
 
   private final ListAdapter listAdapter;
 

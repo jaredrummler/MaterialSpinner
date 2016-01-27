@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
+abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   private Context context;
   private int selectedIndex;
