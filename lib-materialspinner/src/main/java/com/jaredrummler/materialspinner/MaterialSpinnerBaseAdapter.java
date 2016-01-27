@@ -20,6 +20,7 @@ package com.jaredrummler.materialspinner;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -27,7 +28,7 @@ import android.widget.TextView;
 
 public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
-  private Context context;
+  private final Context context;
   private int selectedIndex;
   private int textColor;
 
@@ -36,10 +37,10 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
   }
 
   @Override public View getView(int position, View convertView, ViewGroup parent) {
-    TextView textView;
-
+    final TextView textView;
     if (convertView == null) {
-      convertView = View.inflate(context, R.layout.ms__list_item, null);
+      LayoutInflater inflater = LayoutInflater.from(context);
+      convertView = inflater.inflate(R.layout.ms__list_item, parent, false);
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
       textView.setTextColor(textColor);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
