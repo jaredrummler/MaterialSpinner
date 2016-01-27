@@ -24,6 +24,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -188,7 +189,6 @@ public class MaterialSpinner extends TextView {
         collapse();
       }
     }
-
     return super.onTouchEvent(event);
   }
 
@@ -323,7 +323,15 @@ public class MaterialSpinner extends TextView {
     if (!hideArrow) {
       animateArrow(true);
     }
-    popupWindow.showAsDropDown(this);
+    int[] location = new int[2];
+    getLocationOnScreen(location);
+    Rect rekt = new Rect();
+    rekt.left = location[0];
+    rekt.top = location[1];
+    rekt.right = rekt.left + getWidth();
+    rekt.bottom = rekt.top + getHeight();
+    popupWindow.showAtLocation(this, Gravity.TOP | Gravity.START, rekt.left, rekt.bottom);
+    //popupWindow.showAsDropDown(this);
   }
 
   /**

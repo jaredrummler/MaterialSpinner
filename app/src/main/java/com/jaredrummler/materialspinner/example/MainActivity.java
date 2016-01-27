@@ -49,10 +49,7 @@ public class MainActivity extends AppCompatActivity {
     });
 
     MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
-    spinner.setItems(
-        "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb",
-        "Ice Cream Sandwich", "Jelly Bean", "KitKat", "Lollipop", "Marshmallow"
-    );
+    spinner.setItems("Cupcake", "Donut");
     spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
       @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
