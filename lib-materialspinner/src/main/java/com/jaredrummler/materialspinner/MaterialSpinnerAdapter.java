@@ -42,7 +42,7 @@ public class MaterialSpinnerAdapter<T> extends MaterialSpinnerBaseAdapter {
     }
   }
 
-  @Override public T getItemInDataset(int position) {
+  @Override public T get(int position) {
     return items.get(position);
   }
 

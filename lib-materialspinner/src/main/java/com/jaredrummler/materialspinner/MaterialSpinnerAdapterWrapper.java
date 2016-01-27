@@ -41,7 +41,7 @@ final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
     }
   }
 
-  @Override public Object getItemInDataset(int position) {
+  @Override public Object get(int position) {
     return listAdapter.getItem(position);
   }
 

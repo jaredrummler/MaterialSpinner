@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
+public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   private Context context;
   private int selectedIndex;
@@ -72,7 +72,7 @@ abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   @Override public abstract int getCount();
 
-  public abstract T getItemInDataset(int position);
+  public abstract T get(int position);
 
   protected MaterialSpinnerBaseAdapter<T> setTextColor(int textColor) {
     this.textColor = textColor;

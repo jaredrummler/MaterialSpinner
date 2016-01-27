@@ -134,7 +134,7 @@ public class MaterialSpinner extends TextView {
           position++;
         }
         selectedIndex = position; // Need to set selected index before calling listeners or getSelectedIndex()
-        Object item = adapter.getItemInDataset(position);
+        Object item = adapter.get(position);
         adapter.notifyItemSelected(position);
         setText(item.toString());
         collapse();
@@ -221,7 +221,7 @@ public class MaterialSpinner extends TextView {
       Bundle bundle = (Bundle) savedState;
       selectedIndex = bundle.getInt("selected_index");
       if (adapter != null) {
-        setText(adapter.getItemInDataset(selectedIndex).toString());
+        setText(adapter.get(selectedIndex).toString());
         adapter.notifyItemSelected(selectedIndex);
       }
       if (bundle.getBoolean("is_popup_showing")) {
@@ -258,7 +258,7 @@ public class MaterialSpinner extends TextView {
       if (position >= 0 && position <= adapter.getCount()) {
         adapter.notifyItemSelected(position);
         selectedIndex = position;
-        setText(adapter.getItemInDataset(position).toString());
+        setText(adapter.get(position).toString());
       } else {
         throw new IllegalArgumentException("Position must be lower than adapter count!");
       }
@@ -313,7 +313,7 @@ public class MaterialSpinner extends TextView {
 
   private void setAdapterInternal(@NonNull MaterialSpinnerBaseAdapter adapter) {
     listView.setAdapter(adapter);
-    setText(adapter.getItemInDataset(selectedIndex).toString());
+    setText(adapter.get(selectedIndex).toString());
   }
 
   /**
