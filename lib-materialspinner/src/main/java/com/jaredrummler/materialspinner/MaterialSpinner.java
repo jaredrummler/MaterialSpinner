@@ -18,7 +18,6 @@
 package com.jaredrummler.materialspinner;
 
 import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -305,15 +304,6 @@ public class MaterialSpinner extends TextView {
     if (arrowDrawable != null && !hideArrow) {
       DrawableCompat.setTint(arrowDrawable, getResources().getColor(resId));
     }
-  }
-
-  @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-  private boolean isRTL() {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-      return false;
-    }
-    Configuration config = getResources().getConfiguration();
-    return config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
   }
 
 }
