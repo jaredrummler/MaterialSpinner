@@ -25,10 +25,10 @@
     android:ellipsize="marquee"
     android:gravity="center_vertical"
     android:minHeight="48dp"
-    android:paddingBottom="@dimen/one_and_a_half_grid_unit"
-    android:paddingLeft="@dimen/three_grid_unit"
-    android:paddingRight="@dimen/three_grid_unit"
-    android:paddingStart="@dimen/three_grid_unit"
-    android:paddingTop="@dimen/one_and_a_half_grid_unit"
+    android:paddingBottom="@dimen/ms__padding_top"
+    android:paddingLeft="@dimen/ms__padding_left"
+    android:paddingRight="@dimen/ms__padding_left"
+    android:paddingStart="@dimen/ms__padding_left"
+    android:paddingTop="@dimen/ms__padding_top"
     android:singleLine="true"/>
 

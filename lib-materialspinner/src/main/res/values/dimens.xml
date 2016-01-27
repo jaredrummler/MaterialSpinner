@@ -17,6 +17,6 @@
   -->
 
 <resources>
-    <dimen name="three_grid_unit">24dp</dimen>
-    <dimen name="one_and_a_half_grid_unit">12dp</dimen>
+    <dimen name="ms__padding_left">24dp</dimen>
+    <dimen name="ms__padding_top">12dp</dimen>
 </resources>

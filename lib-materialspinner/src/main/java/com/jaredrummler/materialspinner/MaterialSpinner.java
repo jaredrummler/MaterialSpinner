@@ -102,11 +102,11 @@ public class MaterialSpinner extends TextView {
 
     Resources resources = getResources();
     int left, right, bottom, top;
-    left = right = bottom = top = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
+    left = right = bottom = top = resources.getDimensionPixelSize(R.dimen.ms__padding_top);
     if (rtl) {
-      right = resources.getDimensionPixelSize(R.dimen.three_grid_unit);
+      right = resources.getDimensionPixelSize(R.dimen.ms__padding_left);
     } else {
-      left = resources.getDimensionPixelSize(R.dimen.three_grid_unit);
+      left = resources.getDimensionPixelSize(R.dimen.ms__padding_left);
     }
 
     setClickable(true);

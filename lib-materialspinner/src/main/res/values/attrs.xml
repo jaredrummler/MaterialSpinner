@@ -16,8 +16,8 @@
   ~
   -->
 
-<resources>
-  <declare-styleable name="MaterialSpinner">
+<resources xmlns:tools="http://schemas.android.com/tools">
+  <declare-styleable name="MaterialSpinner" tools:ignore="ResourceName">
     <attr name="ms_arrow_tint" format="color"/>
     <attr name="ms_hide_arrow" format="boolean"/>
     <attr name="ms_background_color" format="color"/>
