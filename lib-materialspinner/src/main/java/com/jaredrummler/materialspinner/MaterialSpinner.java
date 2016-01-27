@@ -48,18 +48,14 @@ import java.util.List;
 
 public class MaterialSpinner extends TextView {
 
-  private static final String INSTANCE_STATE = "instance_state";
-  private static final String SELECTED_INDEX = "selected_index";
-  private static final String IS_POPUP_SHOWING = "is_popup_showing";
-
-  private int selectedIndex;
-  private Drawable arrowDrawable;
+  private AdapterView.OnItemSelectedListener onItemSelectedListener;
+  private AdapterView.OnItemClickListener onItemClickListener;
+  private MaterialSpinnerBaseAdapter adapter;
   private PopupWindow popupWindow;
   private ListView listView;
-  private MaterialSpinnerBaseAdapter adapter;
-  private AdapterView.OnItemClickListener onItemClickListener;
-  private AdapterView.OnItemSelectedListener onItemSelectedListener;
+  private Drawable arrowDrawable;
   private boolean hideArrow;
+  private int selectedIndex;
   private int backgroundColor;
   private int arrowColor;
   private int textColor;
@@ -81,11 +77,13 @@ public class MaterialSpinner extends TextView {
 
   @Override public Parcelable onSaveInstanceState() {
     Bundle bundle = new Bundle();
-    bundle.putParcelable(INSTANCE_STATE, super.onSaveInstanceState());
-    bundle.putInt(SELECTED_INDEX, selectedIndex);
+    bundle.putParcelable("state", super.onSaveInstanceState());
+    bundle.putInt("selected_index", selectedIndex);
     if (popupWindow != null) {
-      bundle.putBoolean(IS_POPUP_SHOWING, popupWindow.isShowing());
+      bundle.putBoolean("is_popup_showing", popupWindow.isShowing());
       dismissDropDown();
+    } else {
+      bundle.putBoolean("is_popup_showing", false);
     }
     return bundle;
   }
@@ -93,30 +91,24 @@ public class MaterialSpinner extends TextView {
   @Override public void onRestoreInstanceState(Parcelable savedState) {
     if (savedState instanceof Bundle) {
       Bundle bundle = (Bundle) savedState;
-
-      selectedIndex = bundle.getInt(SELECTED_INDEX);
-
+      selectedIndex = bundle.getInt("selected_index");
       if (adapter != null) {
         setText(adapter.getItemInDataset(selectedIndex).toString());
         adapter.notifyItemSelected(selectedIndex);
       }
-
-      if (bundle.getBoolean(IS_POPUP_SHOWING)) {
+      if (bundle.getBoolean("is_popup_showing")) {
         if (popupWindow != null) {
           // Post the show request into the looper to avoid bad token exception
           post(new Runnable() {
 
-            @Override
-            public void run() {
+            @Override public void run() {
               showDropDown();
             }
           });
         }
       }
-
-      savedState = bundle.getParcelable(INSTANCE_STATE);
+      savedState = bundle.getParcelable("state");
     }
-
     super.onRestoreInstanceState(savedState);
   }
 
@@ -285,6 +277,7 @@ public class MaterialSpinner extends TextView {
   }
 
   @Override public void setBackgroundColor(int color) {
+    backgroundColor = color;
     getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
     popupWindow.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
   }
