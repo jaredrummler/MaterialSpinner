@@ -17,8 +17,10 @@
   -->
 
 <resources>
-    <declare-styleable name="MaterialSpinner">
-        <attr name="ms_arrow_tint" format="color" />
-        <attr name="ms_hide_arrow" format="boolean" />
-    </declare-styleable>
+  <declare-styleable name="MaterialSpinner">
+    <attr name="ms_arrow_tint" format="color"/>
+    <attr name="ms_hide_arrow" format="boolean"/>
+    <attr name="ms_background_color" format="color"/>
+    <attr name="ms_text_color" format="color"/>
+  </declare-styleable>
 </resources>

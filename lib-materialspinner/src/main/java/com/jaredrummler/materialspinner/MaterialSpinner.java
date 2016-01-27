@@ -22,11 +22,13 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.ColorRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -46,8 +48,6 @@ import java.util.List;
 
 public class MaterialSpinner extends TextView {
 
-  private static final int MAX_LEVEL = 10000;
-  private static final int DEFAULT_ELEVATION = 16;
   private static final String INSTANCE_STATE = "instance_state";
   private static final String SELECTED_INDEX = "selected_index";
   private static final String IS_POPUP_SHOWING = "is_popup_showing";
@@ -60,6 +60,9 @@ public class MaterialSpinner extends TextView {
   private AdapterView.OnItemClickListener onItemClickListener;
   private AdapterView.OnItemSelectedListener onItemSelectedListener;
   private boolean hideArrow;
+  private int backgroundColor;
+  private int arrowColor;
+  private int textColor;
 
   public MaterialSpinner(Context context) {
     super(context);
@@ -118,8 +121,14 @@ public class MaterialSpinner extends TextView {
   }
 
   private void init(Context context, AttributeSet attrs) {
-    Resources resources = getResources();
     TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MaterialSpinner);
+    int defaultColor = getTextColors().getDefaultColor();
+    backgroundColor = typedArray.getColor(R.styleable.MaterialSpinner_ms_background_color, Color.WHITE);
+    textColor = typedArray.getColor(R.styleable.MaterialSpinner_ms_text_color, defaultColor);
+    arrowColor = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
+    hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
+    typedArray.recycle();
+
     setGravity(Gravity.CENTER_VERTICAL | Gravity.START);
 
     boolean rtl = false;
@@ -132,6 +141,7 @@ public class MaterialSpinner extends TextView {
       }
     }
 
+    Resources resources = getResources();
     int left, right, bottom, top;
     left = right = bottom = top = resources.getDimensionPixelSize(R.dimen.one_and_a_half_grid_unit);
     if (rtl) {
@@ -139,16 +149,14 @@ public class MaterialSpinner extends TextView {
     } else {
       left = resources.getDimensionPixelSize(R.dimen.three_grid_unit);
     }
-    setPadding(left, top, right, bottom);
 
     setClickable(true);
+    setPadding(left, top, right, bottom);
     setBackgroundResource(R.drawable.ms__selector);
 
-    hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
     if (!hideArrow) {
-      int tintColor = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, getTextColors().getDefaultColor());
       arrowDrawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.drawable.ms__arrow));
-      DrawableCompat.setTint(arrowDrawable, tintColor);
+      DrawableCompat.setTint(arrowDrawable, arrowColor);
       if (rtl) {
         setCompoundDrawablesWithIntrinsicBounds(arrowDrawable, null, null, null);
       } else {
@@ -156,10 +164,7 @@ public class MaterialSpinner extends TextView {
       }
     }
 
-    typedArray.recycle();
-
     listView = new ListView(context);
-    // Set the spinner's id into the listview to make it pretend to be the right parent in onItemClick
     listView.setId(getId());
     listView.setDivider(null);
     listView.setItemsCanFocus(true);
@@ -193,10 +198,17 @@ public class MaterialSpinner extends TextView {
     popupWindow.setFocusable(true);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      popupWindow.setElevation(DEFAULT_ELEVATION);
+      popupWindow.setElevation(16);
       popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ms__drawable));
     } else {
       popupWindow.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ms__drop_down_shadow));
+    }
+
+    if (backgroundColor != Color.WHITE) { // default color is white
+      setBackgroundColor(backgroundColor);
+    }
+    if (textColor != defaultColor) {
+      setTextColor(textColor);
     }
 
     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
@@ -240,7 +252,7 @@ public class MaterialSpinner extends TextView {
   }
 
   public <T> void attachDataSource(@NonNull List<T> dataset) {
-    adapter = new MaterialSpinnerAdapter<>(getContext(), dataset);
+    adapter = new MaterialSpinnerAdapter<>(getContext(), dataset).setTextColor(textColor);
     setAdapterInternal(adapter);
   }
 
@@ -272,12 +284,21 @@ public class MaterialSpinner extends TextView {
     return super.onTouchEvent(event);
   }
 
-  private void animateArrow(boolean shouldRotateUp) {
-    int start = shouldRotateUp ? 0 : MAX_LEVEL;
-    int end = shouldRotateUp ? MAX_LEVEL : 0;
-    ObjectAnimator animator = ObjectAnimator.ofInt(arrowDrawable, "level", start, end);
-    animator.setInterpolator(new LinearOutSlowInInterpolator());
-    animator.start();
+  @Override public void setBackgroundColor(int color) {
+    getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    popupWindow.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+  }
+
+  @Override public void setTextColor(int color) {
+    textColor = color;
+    super.setTextColor(color);
+  }
+
+  public void setArrowColor(@ColorInt int color) {
+    arrowColor = color;
+    if (arrowDrawable != null) {
+      DrawableCompat.setTint(arrowDrawable, arrowColor);
+    }
   }
 
   public void dismissDropDown() {
@@ -294,10 +315,12 @@ public class MaterialSpinner extends TextView {
     popupWindow.showAsDropDown(this);
   }
 
-  public void setTintColor(@ColorRes int resId) {
-    if (arrowDrawable != null && !hideArrow) {
-      DrawableCompat.setTint(arrowDrawable, getResources().getColor(resId));
-    }
+  private void animateArrow(boolean shouldRotateUp) {
+    int start = shouldRotateUp ? 0 : 10000;
+    int end = shouldRotateUp ? 10000 : 0;
+    ObjectAnimator animator = ObjectAnimator.ofInt(arrowDrawable, "level", start, end);
+    animator.setInterpolator(new LinearOutSlowInInterpolator());
+    animator.start();
   }
 
 }

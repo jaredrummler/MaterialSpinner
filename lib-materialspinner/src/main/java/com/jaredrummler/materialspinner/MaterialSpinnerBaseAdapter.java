@@ -20,7 +20,6 @@ package com.jaredrummler.materialspinner;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -30,6 +29,7 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   private Context context;
   private int selectedIndex;
+  private int textColor;
 
   public MaterialSpinnerBaseAdapter(Context context) {
     this.context = context;
@@ -41,9 +41,7 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
     if (convertView == null) {
       convertView = View.inflate(context, R.layout.ms__list_item, null);
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-        textView.setBackground(ContextCompat.getDrawable(context, R.drawable.ms__selector));
-      }
+      textView.setTextColor(textColor);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
         Configuration config = context.getResources().getConfiguration();
         if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
@@ -75,6 +73,11 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
   @Override public abstract int getCount();
 
   public abstract T getItemInDataset(int position);
+
+  protected MaterialSpinnerBaseAdapter<T> setTextColor(int textColor) {
+    this.textColor = textColor;
+    return this;
+  }
 
   private static class ViewHolder {
 
