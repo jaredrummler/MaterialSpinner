@@ -16,6 +16,5 @@
   -->
 
 <resources>
-  <string name="app_name">Material-Spinner</string>
-  <string name="action_settings">Settings</string>
+  <string name="app_name">Material Spinner</string>
 </resources>
