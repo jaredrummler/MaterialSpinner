@@ -27,7 +27,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.jaredrummler.android.widget.materialspinner.MainActivity"
+    tools:context=".MainActivity"
     tools:showIn="@layout/activity_main">
 
   <com.jaredrummler.materialspinner.MaterialSpinner

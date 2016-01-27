@@ -15,7 +15,7 @@
  *
  */
 
-package com.jaredrummler.android.widget.materialspinner;
+package com.jaredrummler.materialspinner.example;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -31,8 +31,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class MainActivity extends AppCompatActivity {
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
+  @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
