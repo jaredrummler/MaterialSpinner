@@ -44,12 +44,12 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MaterialSpinner extends TextView {
 
-  private AdapterView.OnItemSelectedListener onItemSelectedListener;
-  private AdapterView.OnItemClickListener onItemClickListener;
+  private OnItemSelectedListener onItemSelectedListener;
   private MaterialSpinnerBaseAdapter adapter;
   private PopupWindow popupWindow;
   private ListView listView;
@@ -166,21 +166,15 @@ public class MaterialSpinner extends TextView {
         if (position >= selectedIndex && position < adapter.getCount()) {
           position++;
         }
-
-        // Need to set selected index before calling listeners or getSelectedIndex()
-        selectedIndex = position;
-
-        if (onItemClickListener != null) {
-          onItemClickListener.onItemClick(parent, view, position, id);
-        }
-
-        if (onItemSelectedListener != null) {
-          onItemSelectedListener.onItemSelected(parent, view, position, id);
-        }
-
+        selectedIndex = position; // Need to set selected index before calling listeners or getSelectedIndex()
+        Object item = adapter.getItemInDataset(position);
         adapter.notifyItemSelected(position);
-        setText(adapter.getItemInDataset(position).toString());
+        setText(item.toString());
         dismissDropDown();
+        if (onItemSelectedListener != null) {
+          //noinspection unchecked
+          onItemSelectedListener.onItemSelected(MaterialSpinner.this, position, id, item);
+        }
       }
     });
 
@@ -235,17 +229,17 @@ public class MaterialSpinner extends TextView {
     }
   }
 
-  public void addOnItemClickListener(@NonNull AdapterView.OnItemClickListener onItemClickListener) {
-    this.onItemClickListener = onItemClickListener;
-  }
-
-  public void setOnItemSelectedListener(@NonNull AdapterView.OnItemSelectedListener onItemSelectedListener) {
+  public void setOnItemSelectedListener(@NonNull OnItemSelectedListener onItemSelectedListener) {
     this.onItemSelectedListener = onItemSelectedListener;
   }
 
-  public <T> void attachDataSource(@NonNull List<T> dataset) {
-    adapter = new MaterialSpinnerAdapter<>(getContext(), dataset).setTextColor(textColor);
+  public <T> void setItems(@NonNull List<T> items) {
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setTextColor(textColor);
     setAdapterInternal(adapter);
+  }
+
+  public <T> void setItems(@NonNull T... items) {
+    setItems(Arrays.asList(items));
   }
 
   public void setAdapter(@NonNull ListAdapter adapter) {
@@ -314,6 +308,32 @@ public class MaterialSpinner extends TextView {
     ObjectAnimator animator = ObjectAnimator.ofInt(arrowDrawable, "level", start, end);
     animator.setInterpolator(new LinearOutSlowInInterpolator());
     animator.start();
+  }
+
+  /**
+   * Interface definition for a callback to be invoked when an item in this view has been selected.
+   *
+   * @param <T>
+   *     Adapter item type
+   */
+  public interface OnItemSelectedListener<T> {
+
+    /**
+     * <p>Callback method to be invoked when an item in this view has been selected. This callback is invoked only when
+     * the newly selected position is different from the previously selected position or if there was no selected
+     * item.</p>
+     *
+     * @param view
+     *     The {@link MaterialSpinner} view
+     * @param position
+     *     The position of the view in the adapter
+     * @param id
+     *     The row id of the item that is selected
+     * @param item
+     *     The selected item
+     */
+    void onItemSelected(MaterialSpinner view, int position, long id, T item);
+
   }
 
 }
