@@ -23,11 +23,12 @@
     android:layout_height="wrap_content"
     android:layout_gravity="start|center_vertical"
     android:ellipsize="marquee"
+    android:gravity="center_vertical"
+    android:minHeight="48dp"
     android:paddingBottom="@dimen/one_and_a_half_grid_unit"
     android:paddingLeft="@dimen/three_grid_unit"
     android:paddingRight="@dimen/three_grid_unit"
     android:paddingStart="@dimen/three_grid_unit"
     android:paddingTop="@dimen/one_and_a_half_grid_unit"
-    android:singleLine="true"
-    android:textSize="15sp"/>
+    android:singleLine="true"/>
 
