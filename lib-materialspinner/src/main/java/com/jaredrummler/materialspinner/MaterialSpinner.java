@@ -146,14 +146,9 @@ public class MaterialSpinner extends TextView {
 
     hideArrow = typedArray.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
     if (!hideArrow) {
-      Drawable basicDrawable = ContextCompat.getDrawable(context, R.drawable.ms__arrow);
-      int resId = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, -1);
-      if (basicDrawable != null) {
-        arrowDrawable = DrawableCompat.wrap(basicDrawable);
-        if (resId != -1) {
-          DrawableCompat.setTint(arrowDrawable, resId);
-        }
-      }
+      int tintColor = typedArray.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, getTextColors().getDefaultColor());
+      arrowDrawable = DrawableCompat.wrap(ContextCompat.getDrawable(context, R.drawable.ms__arrow));
+      DrawableCompat.setTint(arrowDrawable, tintColor);
       if (rtl) {
         setCompoundDrawablesWithIntrinsicBounds(arrowDrawable, null, null, null);
       } else {
@@ -164,8 +159,7 @@ public class MaterialSpinner extends TextView {
     typedArray.recycle();
 
     listView = new ListView(context);
-    // Set the spinner's id into the listview to make it pretend to be the right parent in
-    // onItemClick
+    // Set the spinner's id into the listview to make it pretend to be the right parent in onItemClick
     listView.setId(getId());
     listView.setDivider(null);
     listView.setItemsCanFocus(true);
