@@ -322,11 +322,16 @@ public class MaterialSpinner extends TextView {
     if (!hideArrow) {
       animateArrow(true);
     }
-    int[] location = new int[2];
-    getLocationOnScreen(location);
-    int x = location[0];
-    int y = getHeight() + location[1];
-    popupWindow.showAtLocation(this, Gravity.TOP | Gravity.START, x, y);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      popupWindow.setOverlapAnchor(false);
+      popupWindow.showAsDropDown(this);
+    } else {
+      int[] location = new int[2];
+      getLocationOnScreen(location);
+      int x = location[0];
+      int y = getHeight() + location[1];
+      popupWindow.showAtLocation(this, Gravity.TOP | Gravity.START, x, y);
+    }
   }
 
   /**
