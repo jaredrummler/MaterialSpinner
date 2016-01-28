@@ -42,17 +42,17 @@ You can add attributes to customize the view. Available attributes:
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.0.1/material-spinner-1.0.1.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.0.2/material-spinner-1.0.2.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:material-spinner:1.0.1'
+compile 'com.jaredrummler:material-spinner:1.0.2'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>material-spinner</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
   <type>aar</type>
 </dependency>
 ```
