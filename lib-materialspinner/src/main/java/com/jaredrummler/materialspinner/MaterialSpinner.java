@@ -53,12 +53,14 @@ import java.util.List;
  */
 public class MaterialSpinner extends TextView {
 
+  private OnNothingSelectedListener onNothingSelectedListener;
   private OnItemSelectedListener onItemSelectedListener;
   private MaterialSpinnerBaseAdapter adapter;
   private PopupWindow popupWindow;
   private ListView listView;
   private Drawable arrowDrawable;
   private boolean hideArrow;
+  private boolean nothingSelected;
   private int selectedIndex;
   private int backgroundColor;
   private int arrowColor;
@@ -133,7 +135,8 @@ public class MaterialSpinner extends TextView {
         if (position >= selectedIndex && position < adapter.getCount()) {
           position++;
         }
-        selectedIndex = position; // Need to set selected index before calling listeners or getSelectedIndex()
+        selectedIndex = position;
+        nothingSelected = false;
         Object item = adapter.get(position);
         adapter.notifyItemSelected(position);
         setText(item.toString());
@@ -167,6 +170,9 @@ public class MaterialSpinner extends TextView {
     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
 
       @Override public void onDismiss() {
+        if (nothingSelected && onNothingSelectedListener != null) {
+          onNothingSelectedListener.onNothingSelected(MaterialSpinner.this);
+        }
         if (!hideArrow) {
           animateArrow(false);
         }
@@ -275,6 +281,16 @@ public class MaterialSpinner extends TextView {
   }
 
   /**
+   * Register a callback to be invoked when the {@link PopupWindow} is shown but the user didn't select an item.
+   *
+   * @param onNothingSelectedListener
+   *     the callback that will run
+   */
+  public void setOnNothingSelectedListener(@Nullable OnNothingSelectedListener onNothingSelectedListener) {
+    this.onNothingSelectedListener = onNothingSelectedListener;
+  }
+
+  /**
    * Set the dropdown items
    *
    * @param items
@@ -322,6 +338,7 @@ public class MaterialSpinner extends TextView {
     if (!hideArrow) {
       animateArrow(true);
     }
+    nothingSelected = true;
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
       popupWindow.setOverlapAnchor(false);
       popupWindow.showAsDropDown(this);
@@ -389,6 +406,20 @@ public class MaterialSpinner extends TextView {
      */
     void onItemSelected(MaterialSpinner view, int position, long id, T item);
 
+  }
+
+  /**
+   * Interface definition for a callback to be invoked when the dropdown is dismissed and no item was selected.
+   */
+  public interface OnNothingSelectedListener {
+
+    /**
+     * Callback method to be invoked when the {@link PopupWindow} is dismissed and no item was selected.
+     *
+     * @param spinner
+     *     the {@link MaterialSpinner}
+     */
+    void onNothingSelected(MaterialSpinner spinner);
   }
 
 }

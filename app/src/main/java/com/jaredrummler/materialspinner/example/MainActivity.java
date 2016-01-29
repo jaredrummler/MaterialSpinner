@@ -56,7 +56,12 @@ public class MainActivity extends AppCompatActivity {
         Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
       }
     });
+    spinner.setOnNothingSelectedListener(new MaterialSpinner.OnNothingSelectedListener() {
 
+      @Override public void onNothingSelected(MaterialSpinner spinner) {
+        Snackbar.make(spinner, "Nothing selected", Snackbar.LENGTH_LONG).show();
+      }
+    });
   }
 
 }
