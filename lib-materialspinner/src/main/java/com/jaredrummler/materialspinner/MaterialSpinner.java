@@ -24,17 +24,21 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.ColorInt;
+import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.animation.LinearOutSlowInInterpolator;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -45,6 +49,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
@@ -52,6 +57,21 @@ import java.util.List;
  * A spinner that shows a {@link PopupWindow} under the view when clicked.
  */
 public class MaterialSpinner extends TextView {
+
+  /**
+   * Darkens a color by a given factor.
+   *
+   * @param color
+   *     the color to darken
+   * @param factor
+   *     The factor to darken the color.
+   * @return darker version of specified color.
+   */
+  @ColorInt private static int darker(@ColorInt int color, @FloatRange(from = 0.0, to = 1.0) float factor) {
+    return Color.argb(Color.alpha(color), Math.max((int) (Color.red(color) * factor), 0),
+        Math.max((int) (Color.green(color) * factor), 0),
+        Math.max((int) (Color.blue(color) * factor), 0));
+  }
 
   private OnNothingSelectedListener onNothingSelectedListener;
   private OnItemSelectedListener onItemSelectedListener;
@@ -199,7 +219,22 @@ public class MaterialSpinner extends TextView {
 
   @Override public void setBackgroundColor(int color) {
     backgroundColor = color;
-    getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    Drawable background = getBackground();
+    if (background instanceof StateListDrawable) { // pre-L
+      try {
+        Method getStateDrawable = StateListDrawable.class.getDeclaredMethod("getStateDrawable", int.class);
+        if (!getStateDrawable.isAccessible()) getStateDrawable.setAccessible(true);
+        int[] colors = {darker(color, 0.85f), color};
+        for (int i = 0; i < colors.length; i++) {
+          ColorDrawable drawable = (ColorDrawable) getStateDrawable.invoke(background, i);
+          drawable.setColor(colors[i]);
+        }
+      } catch (Exception e) {
+        Log.e("MaterialSpinner", "Error setting background color", e);
+      }
+    } else if (background != null) { // 21+ (RippleDrawable)
+      background.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+    }
     popupWindow.getBackground().setColorFilter(color, PorterDuff.Mode.SRC_IN);
   }
 
