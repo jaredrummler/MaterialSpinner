@@ -63,7 +63,7 @@ public class MaterialSpinner extends TextView {
    *
    * @param color
    *     the color to darken
-   * @param factor
+   * @param factorse
    *     The factor to darken the color.
    * @return darker version of specified color.
    */
@@ -333,7 +333,10 @@ public class MaterialSpinner extends TextView {
    * @param <T>
    *     The item type
    */
+   
+  int mNumberOfItems; 
   public <T> void setItems(@NonNull List<T> items) {
+    mNumberOfItems = items.size();
     adapter = new MaterialSpinnerAdapter<>(getContext(), items).setTextColor(textColor);
     setAdapterInternal(adapter);
   }
@@ -363,6 +366,9 @@ public class MaterialSpinner extends TextView {
 
   private void setAdapterInternal(@NonNull MaterialSpinnerBaseAdapter adapter) {
     listView.setAdapter(adapter);
+    if (selectedIndex >= mNumberOfItems) {
+      selectedIndex = 0;
+    }
     setText(adapter.get(selectedIndex).toString());
   }
 
