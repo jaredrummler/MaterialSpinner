@@ -85,6 +85,7 @@ public class MaterialSpinner extends TextView {
   private int backgroundColor;
   private int arrowColor;
   private int textColor;
+  private int numberOfItems;
 
   public MaterialSpinner(Context context) {
     super(context);
@@ -333,10 +334,8 @@ public class MaterialSpinner extends TextView {
    * @param <T>
    *     The item type
    */
-   
-  int mNumberOfItems; 
   public <T> void setItems(@NonNull List<T> items) {
-    mNumberOfItems = items.size();
+    numberOfItems = items.size();
     adapter = new MaterialSpinnerAdapter<>(getContext(), items).setTextColor(textColor);
     setAdapterInternal(adapter);
   }
@@ -366,7 +365,7 @@ public class MaterialSpinner extends TextView {
 
   private void setAdapterInternal(@NonNull MaterialSpinnerBaseAdapter adapter) {
     listView.setAdapter(adapter);
-    if (selectedIndex >= mNumberOfItems) {
+    if (selectedIndex >= numberOfItems) {
       selectedIndex = 0;
     }
     setText(adapter.get(selectedIndex).toString());
