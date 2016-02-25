@@ -63,7 +63,7 @@ public class MaterialSpinner extends TextView {
    *
    * @param color
    *     the color to darken
-   * @param factorse
+   * @param factor
    *     The factor to darken the color.
    * @return darker version of specified color.
    */
