@@ -20,7 +20,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-    resourcePrefix 'ms_'
+    resourcePrefix 'ms__'
 
     defaultConfig {
         minSdkVersion 14
