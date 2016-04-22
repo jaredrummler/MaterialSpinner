@@ -399,6 +399,10 @@ public class MaterialSpinner extends TextView {
     animator.start();
   }
 
+  public void setDropdownColor(@ColorInt int color){
+    popupWindow.setBackgroundDrawable(new ColorDrawable(color));
+  }
+
   /**
    * Interface definition for a callback to be invoked when an item in this view has been selected.
    *
