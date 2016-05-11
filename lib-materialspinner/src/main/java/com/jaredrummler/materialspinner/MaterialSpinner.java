@@ -412,6 +412,15 @@ public class MaterialSpinner extends TextView {
   }
 
   /**
+   * Get the {@link PopupWindow}.
+   *
+   * @return The {@link PopupWindow} that is displayed when the view has been clicked.
+   */
+  public PopupWindow getPopupWindow() {
+    return popupWindow;
+  }
+
+  /**
    * Interface definition for a callback to be invoked when an item in this view has been selected.
    *
    * @param <T>
