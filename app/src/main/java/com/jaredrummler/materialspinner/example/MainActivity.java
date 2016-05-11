@@ -31,6 +31,11 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class MainActivity extends AppCompatActivity {
 
+  private static final String[] ANDROID_VERSIONS = {
+      "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice Cream Sandwich", "Jelly Bean", "KitKat",
+      "Lollipop", "Marshmallow"
+  };
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
@@ -49,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     });
 
     MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
-    spinner.setItems("Ice Cream Sandwich", "Jelly Bean", "KitKat", "Lollipop", "Marshmallow");
+    spinner.setItems(ANDROID_VERSIONS);
     spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
       @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {

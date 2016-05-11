@@ -22,5 +22,11 @@
     <attr name="ms_hide_arrow" format="boolean"/>
     <attr name="ms_background_color" format="color"/>
     <attr name="ms_text_color" format="color"/>
+    <attr name="ms_dropdown_max_height" format="dimension"/>
+    <attr name="ms_dropdown_height" format="dimension">
+      <enum name="fill_parent" value="-1"/>
+      <enum name="match_parent" value="-1"/>
+      <enum name="wrap_content" value="-2"/>
+    </attr>
   </declare-styleable>
 </resources>

@@ -61,6 +61,8 @@ public class MaterialSpinner extends TextView {
   private Drawable arrowDrawable;
   private boolean hideArrow;
   private boolean nothingSelected;
+  private int popupWindowMaxHeight;
+  private int popupWindowHeight;
   private int selectedIndex;
   private int backgroundColor;
   private int arrowColor;
@@ -93,6 +95,9 @@ public class MaterialSpinner extends TextView {
       textColor = ta.getColor(R.styleable.MaterialSpinner_ms_text_color, defaultColor);
       arrowColor = ta.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
       hideArrow = ta.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
+      popupWindowMaxHeight = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_dropdown_max_height, 0);
+      popupWindowHeight = ta.getLayoutDimension(R.styleable.MaterialSpinner_ms_dropdown_height,
+          WindowManager.LayoutParams.WRAP_CONTENT);
       arrowColorDisabled = Utils.lighter(arrowColor, 0.8f);
     } finally {
       ta.recycle();
@@ -183,7 +188,7 @@ public class MaterialSpinner extends TextView {
 
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     popupWindow.setWidth(MeasureSpec.getSize(widthMeasureSpec));
-    popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+    popupWindow.setHeight(calculatePopupWindowHeight());
     super.onMeasure(widthMeasureSpec, heightMeasureSpec);
   }
 
@@ -409,6 +414,40 @@ public class MaterialSpinner extends TextView {
     int end = shouldRotateUp ? 10000 : 0;
     ObjectAnimator animator = ObjectAnimator.ofInt(arrowDrawable, "level", start, end);
     animator.start();
+  }
+
+  /**
+   * Set the maximum height of the dropdown menu.
+   *
+   * @param height
+   *     the height in pixels
+   */
+  public void setDropdownMaxHeight(int height) {
+    popupWindowMaxHeight = height;
+    popupWindow.setHeight(calculatePopupWindowHeight());
+  }
+
+  /**
+   * Set the height of the dropdown menu
+   *
+   * @param height
+   *     the height in pixels
+   */
+  public void setDropdownHeight(int height) {
+    popupWindowHeight = height;
+    popupWindow.setHeight(calculatePopupWindowHeight());
+  }
+
+  private int calculatePopupWindowHeight() {
+    float listViewHeight = adapter.getCount() * getResources().getDimension(R.dimen.ms__item_height);
+    if (popupWindowMaxHeight > 0 && listViewHeight > popupWindowMaxHeight) {
+      return popupWindowMaxHeight;
+    } else if (popupWindowHeight != WindowManager.LayoutParams.MATCH_PARENT
+        && popupWindowHeight != WindowManager.LayoutParams.WRAP_CONTENT
+        && popupWindowHeight <= listViewHeight) {
+      return popupWindowHeight;
+    }
+    return WindowManager.LayoutParams.WRAP_CONTENT;
   }
 
   /**

@@ -32,27 +32,29 @@ spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<Str
 
 You can add attributes to customize the view. Available attributes:
 
-| name                | type    | info                                                   |
-|---------------------|---------|--------------------------------------------------------|
-| ms_arrow_tint       | color   | sets the color on the drop-down arrow                  |
-| ms_hide_arrow       | boolean | set to true to hide the arrow drawable                 |
-| ms_background_color | color   | set the background color for the spinner and drop-down |
-| ms_text_color       | color   | set the text color                                     |
+| name                   | type      | info                                                   |
+|------------------------|-----------|--------------------------------------------------------|
+| ms_arrow_tint          | color     | sets the color on the drop-down arrow                  |
+| ms_hide_arrow          | boolean   | set to true to hide the arrow drawable                 |
+| ms_background_color    | color     | set the background color for the spinner and drop-down |
+| ms_text_color          | color     | set the text color                                     |
+| ms_dropdown_max_height | dimension | set the max height of the drop-down                    |
+| ms_dropdown_height     | dimension | set the height of the drop-down                        |
 
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.0.7/material-spinner-1.0.7.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.0.8/material-spinner-1.0.8.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:material-spinner:1.0.7'
+compile 'com.jaredrummler:material-spinner:1.0.8'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>material-spinner</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <type>aar</type>
 </dependency>
 ```
