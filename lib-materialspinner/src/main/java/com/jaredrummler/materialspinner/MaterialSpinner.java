@@ -64,6 +64,7 @@ public class MaterialSpinner extends TextView {
   private int selectedIndex;
   private int backgroundColor;
   private int arrowColor;
+  private int arrowColorDisabled;
   private int textColor;
   private int numberOfItems;
 
@@ -92,6 +93,7 @@ public class MaterialSpinner extends TextView {
       textColor = ta.getColor(R.styleable.MaterialSpinner_ms_text_color, defaultColor);
       arrowColor = ta.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
       hideArrow = ta.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
+      arrowColorDisabled = Utils.lighter(arrowColor, 0.8f);
     } finally {
       ta.recycle();
     }
@@ -187,10 +189,12 @@ public class MaterialSpinner extends TextView {
 
   @Override public boolean onTouchEvent(@NonNull MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_UP) {
-      if (!popupWindow.isShowing()) {
-        expand();
-      } else {
-        collapse();
+      if (isEnabled() && isClickable()) {
+        if (!popupWindow.isShowing()) {
+          expand();
+        } else {
+          collapse();
+        }
       }
     }
     return super.onTouchEvent(event);
@@ -257,6 +261,13 @@ public class MaterialSpinner extends TextView {
       savedState = bundle.getParcelable("state");
     }
     super.onRestoreInstanceState(savedState);
+  }
+
+  @Override public void setEnabled(boolean enabled) {
+    super.setEnabled(enabled);
+    if (arrowDrawable != null) {
+      arrowDrawable.setColorFilter(enabled ? arrowColor : arrowColorDisabled, PorterDuff.Mode.SRC_IN);
+    }
   }
 
   /**
@@ -387,6 +398,7 @@ public class MaterialSpinner extends TextView {
    */
   public void setArrowColor(@ColorInt int color) {
     arrowColor = color;
+    arrowColorDisabled = Utils.lighter(arrowColor, 0.8f);
     if (arrowDrawable != null) {
       arrowDrawable.setColorFilter(arrowColor, PorterDuff.Mode.SRC_IN);
     }
