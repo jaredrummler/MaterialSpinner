@@ -411,6 +411,10 @@ public class MaterialSpinner extends TextView {
     animator.start();
   }
 
+  public void setDropdownColor(@ColorInt int color){
+    popupWindow.setBackgroundDrawable(new ColorDrawable(color));
+  }
+
   /**
    * Get the {@link PopupWindow}.
    *
