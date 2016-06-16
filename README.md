@@ -1,7 +1,18 @@
-Material Spinner
-================
+<h1 align="center">Material Spinner</h1>
+<h4 align="center">Android Library</h4>
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner) [![License](http://img.shields.io/:license-apache-blue.svg)](LICENSE) [![API](https://img.shields.io/badge/API-14%2B-blue.svg?style=flat)](https://android-arsenal.com/api?level=14) [![Twitter Follow](https://img.shields.io/twitter/follow/jrummy16.svg?style=social)](https://twitter.com/jrummy16)
+<p align="center">
+  <a target="_blank" href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH"><img src="https://img.shields.io/badge/API-14%2B-blue.svg?style=flat" alt="API" /></a>
+  <a target="_blank" href="LICENSE"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License" /></a>
+  <a target="_blank" href="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner"><img src="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner/badge.svg" alt="Maven Central" /></a>
+  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Amaterial-spinner%3A1.0.9"><img src="https://img.shields.io/badge/methods-197-e91e63.svg" /></a>
+</p>
+
+<p align="center">
+  <a target="_blank" href="https://twitter.com/jrummy16"><img src="https://img.shields.io/twitter/follow/jrummy16.svg?style=social" /></a>
+</p>
+
+___
 
 ![DEMO GIF](demo.gif "DEMO")
 
@@ -59,10 +70,10 @@ or Maven:
 </dependency>
 ```
 
-Credits
--------
+Acknowledgements
+----------------
 
-This library is based on [Nice Spinner](https://github.com/arcadefire/nice-spinner) by Angelo Marchesin
+[Nice Spinner](https://github.com/arcadefire/nice-spinner) by Angelo Marchesin
 
 License
 --------
