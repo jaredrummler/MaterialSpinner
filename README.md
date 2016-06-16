@@ -12,6 +12,8 @@
   <a target="_blank" href="https://twitter.com/jrummy16"><img src="https://img.shields.io/twitter/follow/jrummy16.svg?style=social" /></a>
 </p>
 
+___
+
 ![DEMO GIF](demo.gif "DEMO")
 
 Usage
