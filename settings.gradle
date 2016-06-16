@@ -1,1 +1,1 @@
-include ':app', ':lib-materialspinner'
+include ':demo', ':lib-materialspinner'
