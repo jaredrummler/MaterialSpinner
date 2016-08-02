@@ -20,6 +20,9 @@ package com.jaredrummler.materialspinner;
 import android.content.Context;
 import android.widget.ListAdapter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
 
   private final ListAdapter listAdapter;
@@ -43,6 +46,14 @@ final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
 
   @Override public Object get(int position) {
     return listAdapter.getItem(position);
+  }
+
+  @Override public List<Object> getItems() {
+    List<Object> items = new ArrayList<>();
+    for (int i = 0; i < getCount(); i++) {
+      items.add(getItem(i));
+    }
+    return items;
   }
 
 }

@@ -347,6 +347,21 @@ public class MaterialSpinner extends TextView {
   }
 
   /**
+   * Get the list of items in the adapter
+   *
+   * @param <T>
+   *     The item type
+   * @return A list of items or {@code null} if no items are set.
+   */
+  public <T> List<T> getItems() {
+    if (adapter == null) {
+      return null;
+    }
+    //noinspection unchecked
+    return adapter.getItems();
+  }
+
+  /**
    * Set a custom adapter for the dropdown items
    *
    * @param adapter
@@ -355,6 +370,11 @@ public class MaterialSpinner extends TextView {
   public void setAdapter(@NonNull ListAdapter adapter) {
     this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter);
     setAdapterInternal(this.adapter);
+  }
+
+  public <T> void setAdapter(MaterialSpinnerAdapter<T> adapter) {
+    this.adapter = adapter;
+    setAdapterInternal(adapter);
   }
 
   private void setAdapterInternal(@NonNull MaterialSpinnerBaseAdapter adapter) {

@@ -26,6 +26,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.util.List;
+
 public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   private final Context context;
@@ -75,7 +77,9 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   public abstract T get(int position);
 
-  protected MaterialSpinnerBaseAdapter<T> setTextColor(int textColor) {
+  public abstract List<T> getItems();
+
+  public MaterialSpinnerBaseAdapter<T> setTextColor(int textColor) {
     this.textColor = textColor;
     return this;
   }

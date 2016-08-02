@@ -46,4 +46,8 @@ public class MaterialSpinnerAdapter<T> extends MaterialSpinnerBaseAdapter {
     return items.get(position);
   }
 
+  @Override public List<T> getItems() {
+    return items;
+  }
+
 }
