@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
   compileSdkVersion 24
-  buildToolsVersion "24.0.1"
+  buildToolsVersion "24.0.2"
   resourcePrefix 'ms__'
 
   defaultConfig {
@@ -13,7 +13,7 @@ android {
 
 dependencies {
   testCompile 'junit:junit:4.12'
-  compile 'com.android.support:support-annotations:24.1.1'
+  compile 'com.android.support:support-annotations:24.2.1'
 }
 
 apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
