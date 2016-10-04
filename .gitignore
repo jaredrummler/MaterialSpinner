@@ -23,7 +23,6 @@ out/
 
 ### Java
 *.class
-*.jar
 hs_err_pid*
 
 ### Windows
