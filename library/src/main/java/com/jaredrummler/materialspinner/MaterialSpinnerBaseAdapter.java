@@ -20,12 +20,13 @@ package com.jaredrummler.materialspinner;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.DrawableRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.List;
 
 public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
@@ -33,6 +34,7 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
   private final Context context;
   private int selectedIndex;
   private int textColor;
+  private int backgroundSelector;
 
   public MaterialSpinnerBaseAdapter(Context context) {
     this.context = context;
@@ -45,6 +47,9 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
       convertView = inflater.inflate(R.layout.ms__list_item, parent, false);
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
       textView.setTextColor(textColor);
+      if (backgroundSelector != 0) {
+        textView.setBackgroundResource(backgroundSelector);
+      }
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
         Configuration config = context.getResources().getConfiguration();
         if (config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
@@ -79,8 +84,13 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   public abstract List<T> getItems();
 
-  public MaterialSpinnerBaseAdapter<T> setTextColor(int textColor) {
+  public MaterialSpinnerBaseAdapter<T> setTextColor(@ColorInt int textColor) {
     this.textColor = textColor;
+    return this;
+  }
+
+  public MaterialSpinnerBaseAdapter<T> setBackgroundSelector(@DrawableRes int backgroundSelector) {
+    this.backgroundSelector = backgroundSelector;
     return this;
   }
 
@@ -91,7 +101,5 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
     private ViewHolder(TextView textView) {
       this.textView = textView;
     }
-
   }
-
 }

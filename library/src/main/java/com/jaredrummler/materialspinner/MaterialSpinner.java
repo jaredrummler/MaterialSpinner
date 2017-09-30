@@ -64,6 +64,7 @@ public class MaterialSpinner extends TextView {
   private int popupWindowHeight;
   private int selectedIndex;
   private int backgroundColor;
+  private int backgroundSelector;
   private int arrowColor;
   private int arrowColorDisabled;
   private int textColor;
@@ -90,6 +91,7 @@ public class MaterialSpinner extends TextView {
 
     try {
       backgroundColor = ta.getColor(R.styleable.MaterialSpinner_ms_background_color, Color.WHITE);
+      backgroundSelector = ta.getResourceId(R.styleable.MaterialSpinner_ms_background_selector, 0);
       textColor = ta.getColor(R.styleable.MaterialSpinner_ms_text_color, defaultColor);
       arrowColor = ta.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
       hideArrow = ta.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
@@ -166,6 +168,8 @@ public class MaterialSpinner extends TextView {
 
     if (backgroundColor != Color.WHITE) { // default color is white
       setBackgroundColor(backgroundColor);
+    } else if (backgroundSelector != 0) {
+      setBackgroundResource(backgroundSelector);
     }
     if (textColor != defaultColor) {
       setTextColor(textColor);
@@ -332,7 +336,9 @@ public class MaterialSpinner extends TextView {
    * @param <T> The item type
    */
   public <T> void setItems(@NonNull List<T> items) {
-    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setTextColor(textColor);
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items)
+        .setBackgroundSelector(backgroundSelector)
+        .setTextColor(textColor);
     setAdapterInternal(adapter);
   }
 
@@ -356,7 +362,9 @@ public class MaterialSpinner extends TextView {
    * @param adapter The list adapter
    */
   public void setAdapter(@NonNull ListAdapter adapter) {
-    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter).setTextColor(textColor);
+    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter)
+        .setBackgroundSelector(backgroundSelector)
+        .setTextColor(textColor);
     setAdapterInternal(this.adapter);
   }
 
@@ -369,6 +377,7 @@ public class MaterialSpinner extends TextView {
   public <T> void setAdapter(MaterialSpinnerAdapter<T> adapter) {
     this.adapter = adapter;
     this.adapter.setTextColor(textColor);
+    this.adapter.setBackgroundSelector(backgroundSelector);
     setAdapterInternal(adapter);
   }
 

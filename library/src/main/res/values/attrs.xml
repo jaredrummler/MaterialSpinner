@@ -28,5 +28,6 @@
       <enum name="match_parent" value="-1"/>
       <enum name="wrap_content" value="-2"/>
     </attr>
+    <attr name="ms_background_selector" format="integer"/>
   </declare-styleable>
 </resources>
