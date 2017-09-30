@@ -336,8 +336,7 @@ public class MaterialSpinner extends TextView {
    * @param <T> The item type
    */
   public <T> void setItems(@NonNull List<T> items) {
-    adapter = new MaterialSpinnerAdapter<>(getContext(), items)
-        .setBackgroundSelector(backgroundSelector)
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setBackgroundSelector(backgroundSelector)
         .setTextColor(textColor);
     setAdapterInternal(adapter);
   }
@@ -362,8 +361,7 @@ public class MaterialSpinner extends TextView {
    * @param adapter The list adapter
    */
   public void setAdapter(@NonNull ListAdapter adapter) {
-    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter)
-        .setBackgroundSelector(backgroundSelector)
+    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter).setBackgroundSelector(backgroundSelector)
         .setTextColor(textColor);
     setAdapterInternal(this.adapter);
   }
@@ -397,16 +395,7 @@ public class MaterialSpinner extends TextView {
       animateArrow(true);
     }
     nothingSelected = true;
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-      popupWindow.setOverlapAnchor(false);
-      popupWindow.showAsDropDown(this);
-    } else {
-      int[] location = new int[2];
-      getLocationOnScreen(location);
-      int x = location[0];
-      int y = getHeight() + location[1];
-      popupWindow.showAtLocation(this, Gravity.TOP | Gravity.START, x, y);
-    }
+    popupWindow.showAsDropDown(this);
   }
 
   /**
