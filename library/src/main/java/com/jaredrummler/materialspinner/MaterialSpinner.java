@@ -384,7 +384,11 @@ public class MaterialSpinner extends TextView {
     if (selectedIndex >= adapter.getCount()) {
       selectedIndex = 0;
     }
-    setText(adapter.get(selectedIndex).toString());
+    if (adapter.getCount() > 0) {
+      setText(adapter.get(selectedIndex).toString());
+    } else {
+      setText("");
+    }
   }
 
   /**
