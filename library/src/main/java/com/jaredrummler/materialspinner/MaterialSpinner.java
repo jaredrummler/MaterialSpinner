@@ -43,7 +43,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -68,7 +67,6 @@ public class MaterialSpinner extends TextView {
   private int arrowColor;
   private int arrowColorDisabled;
   private int textColor;
-  private int numberOfItems;
 
   public MaterialSpinner(Context context) {
     super(context);
@@ -212,7 +210,7 @@ public class MaterialSpinner extends TextView {
       try {
         Method getStateDrawable = StateListDrawable.class.getDeclaredMethod("getStateDrawable", int.class);
         if (!getStateDrawable.isAccessible()) getStateDrawable.setAccessible(true);
-        int[] colors = {Utils.darker(color, 0.85f), color};
+        int[] colors = { Utils.darker(color, 0.85f), color };
         for (int i = 0; i < colors.length; i++) {
           ColorDrawable drawable = (ColorDrawable) getStateDrawable.invoke(background, i);
           drawable.setColor(colors[i]);
@@ -285,8 +283,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Set the default spinner item using its index
    *
-   * @param position
-   *     the item's position
+   * @param position the item's position
    */
   public void setSelectedIndex(int position) {
     if (adapter != null) {
@@ -303,8 +300,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Register a callback to be invoked when an item in the dropdown is selected.
    *
-   * @param onItemSelectedListener
-   *     The callback that will run
+   * @param onItemSelectedListener The callback that will run
    */
   public void setOnItemSelectedListener(@Nullable OnItemSelectedListener onItemSelectedListener) {
     this.onItemSelectedListener = onItemSelectedListener;
@@ -313,8 +309,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Register a callback to be invoked when the {@link PopupWindow} is shown but the user didn't select an item.
    *
-   * @param onNothingSelectedListener
-   *     the callback that will run
+   * @param onNothingSelectedListener the callback that will run
    */
   public void setOnNothingSelectedListener(@Nullable OnNothingSelectedListener onNothingSelectedListener) {
     this.onNothingSelectedListener = onNothingSelectedListener;
@@ -323,34 +318,28 @@ public class MaterialSpinner extends TextView {
   /**
    * Set the dropdown items
    *
-   * @param items
-   *     A list of items
-   * @param <T>
-   *     The item type
-   */
-  public <T> void setItems(@NonNull List<T> items) {
-    numberOfItems = items.size();
-    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setTextColor(textColor);
-    setAdapterInternal(adapter);
-  }
-
-  /**
-   * Set the dropdown items
-   *
-   * @param items
-   *     A list of items
-   * @param <T>
-   *     The item type
+   * @param items A list of items
+   * @param <T> The item type
    */
   public <T> void setItems(@NonNull T... items) {
     setItems(Arrays.asList(items));
   }
 
   /**
+   * Set the dropdown items
+   *
+   * @param items A list of items
+   * @param <T> The item type
+   */
+  public <T> void setItems(@NonNull List<T> items) {
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setTextColor(textColor);
+    setAdapterInternal(adapter);
+  }
+
+  /**
    * Get the list of items in the adapter
    *
-   * @param <T>
-   *     The item type
+   * @param <T> The item type
    * @return A list of items or {@code null} if no items are set.
    */
   public <T> List<T> getItems() {
@@ -364,22 +353,28 @@ public class MaterialSpinner extends TextView {
   /**
    * Set a custom adapter for the dropdown items
    *
-   * @param adapter
-   *     The list adapter
+   * @param adapter The list adapter
    */
   public void setAdapter(@NonNull ListAdapter adapter) {
-    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter);
+    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter).setTextColor(textColor);
     setAdapterInternal(this.adapter);
   }
 
+  /**
+   * Set the custom adapter for the dropdown items
+   *
+   * @param adapter The adapter
+   * @param <T> The type
+   */
   public <T> void setAdapter(MaterialSpinnerAdapter<T> adapter) {
     this.adapter = adapter;
+    this.adapter.setTextColor(textColor);
     setAdapterInternal(adapter);
   }
 
   private void setAdapterInternal(@NonNull MaterialSpinnerBaseAdapter adapter) {
     listView.setAdapter(adapter);
-    if (selectedIndex >= numberOfItems) {
+    if (selectedIndex >= adapter.getCount()) {
       selectedIndex = 0;
     }
     setText(adapter.get(selectedIndex).toString());
@@ -418,8 +413,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Set the tint color for the dropdown arrow
    *
-   * @param color
-   *     the color value
+   * @param color the color value
    */
   public void setArrowColor(@ColorInt int color) {
     arrowColor = color;
@@ -439,8 +433,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Set the maximum height of the dropdown menu.
    *
-   * @param height
-   *     the height in pixels
+   * @param height the height in pixels
    */
   public void setDropdownMaxHeight(int height) {
     popupWindowMaxHeight = height;
@@ -450,8 +443,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Set the height of the dropdown menu
    *
-   * @param height
-   *     the height in pixels
+   * @param height the height in pixels
    */
   public void setDropdownHeight(int height) {
     popupWindowHeight = height;
@@ -485,8 +477,7 @@ public class MaterialSpinner extends TextView {
   /**
    * Interface definition for a callback to be invoked when an item in this view has been selected.
    *
-   * @param <T>
-   *     Adapter item type
+   * @param <T> Adapter item type
    */
   public interface OnItemSelectedListener<T> {
 
@@ -495,17 +486,12 @@ public class MaterialSpinner extends TextView {
      * the newly selected position is different from the previously selected position or if there was no selected
      * item.</p>
      *
-     * @param view
-     *     The {@link MaterialSpinner} view
-     * @param position
-     *     The position of the view in the adapter
-     * @param id
-     *     The row id of the item that is selected
-     * @param item
-     *     The selected item
+     * @param view The {@link MaterialSpinner} view
+     * @param position The position of the view in the adapter
+     * @param id The row id of the item that is selected
+     * @param item The selected item
      */
     void onItemSelected(MaterialSpinner view, int position, long id, T item);
-
   }
 
   /**
@@ -516,10 +502,8 @@ public class MaterialSpinner extends TextView {
     /**
      * Callback method to be invoked when the {@link PopupWindow} is dismissed and no item was selected.
      *
-     * @param spinner
-     *     the {@link MaterialSpinner}
+     * @param spinner the {@link MaterialSpinner}
      */
     void onNothingSelected(MaterialSpinner spinner);
   }
-
 }
