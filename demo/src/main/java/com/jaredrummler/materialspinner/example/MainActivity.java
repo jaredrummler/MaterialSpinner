@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
       @Override public void onClick(View view) {
         try {
-          startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jaredrummler/Material-Spinner")));
+          startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/jaredrummler/MaterialSpinner")));
         } catch (ActivityNotFoundException ignored) {
         }
       }
