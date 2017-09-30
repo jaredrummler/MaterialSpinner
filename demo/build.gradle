@@ -21,6 +21,6 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:design:26.+'
+  compile 'com.android.support:design:26.0.2'
   compile project(':library')
 }
