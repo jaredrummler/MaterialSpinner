@@ -1,15 +1,11 @@
 <h1 align="center">Material Spinner</h1>
-<h4 align="center">Android Library</h4>
 
 <p align="center">
   <a target="_blank" href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH"><img src="https://img.shields.io/badge/API-14%2B-blue.svg?style=flat" alt="API" /></a>
   <a target="_blank" href="LICENSE"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License" /></a>
   <a target="_blank" href="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner"><img src="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner/badge.svg" alt="Maven Central" /></a>
-  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Amaterial-spinner%3A1.1.0"><img src="https://img.shields.io/badge/methods-197-e91e63.svg" /></a>
-</p>
-
-<p align="center">
-  <a target="_blank" href="https://twitter.com/jrummy16"><img src="https://img.shields.io/twitter/follow/jrummy16.svg?style=social" /></a>
+  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Amaterial-spinner%3A1.2.0"><img src="https://img.shields.io/badge/methods-197-e91e63.svg" /></a>
+  <a target="_blank" href="https://twitter.com/jaredrummler"><img src="https://img.shields.io/twitter/follow/jaredrummler.svg?style=social" /></a>
 </p>
 
 ___
@@ -48,6 +44,7 @@ You can add attributes to customize the view. Available attributes:
 | ms_arrow_tint          | color     | sets the color on the drop-down arrow                  |
 | ms_hide_arrow          | boolean   | set to true to hide the arrow drawable                 |
 | ms_background_color    | color     | set the background color for the spinner and drop-down |
+| ms_background_selector | integer   | set the background resource for the dropdown items     |
 | ms_text_color          | color     | set the text color                                     |
 | ms_dropdown_max_height | dimension | set the max height of the drop-down                    |
 | ms_dropdown_height     | dimension | set the height of the drop-down                        |
@@ -55,17 +52,17 @@ You can add attributes to customize the view. Available attributes:
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.1.0/material-spinner-1.1.0.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.2.0/material-spinner-1.2.0.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:material-spinner:1.1.0'
+compile 'com.jaredrummler:material-spinner:1.2.0'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>material-spinner</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
   <type>aar</type>
 </dependency>
 ```
