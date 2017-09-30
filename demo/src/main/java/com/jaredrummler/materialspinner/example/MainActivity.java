@@ -26,14 +26,24 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class MainActivity extends AppCompatActivity {
 
   private static final String[] ANDROID_VERSIONS = {
-      "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice Cream Sandwich", "Jelly Bean", "KitKat",
-      "Lollipop", "Marshmallow"
+      "Cupcake",
+      "Donut",
+      "Eclair",
+      "Froyo",
+      "Gingerbread",
+      "Honeycomb",
+      "Ice Cream Sandwich",
+      "Jelly Bean",
+      "KitKat",
+      "Lollipop",
+      "Marshmallow",
+      "Nougat",
+      "Oreo"
   };
 
   @Override protected void onCreate(Bundle savedInstanceState) {
