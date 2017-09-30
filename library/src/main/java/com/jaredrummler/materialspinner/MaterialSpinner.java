@@ -473,6 +473,15 @@ public class MaterialSpinner extends TextView {
   }
 
   /**
+   * Get the {@link ListView} that is used in the dropdown menu
+   *
+   * @return the ListView shown in the PopupWindow.
+   */
+  public ListView getListView() {
+    return listView;
+  }
+
+  /**
    * Interface definition for a callback to be invoked when an item in this view has been selected.
    *
    * @param <T> Adapter item type
