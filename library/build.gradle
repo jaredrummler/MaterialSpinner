@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 
 android {
   compileSdkVersion 24
-  buildToolsVersion "24.0.3"
+  buildToolsVersion '25.0.2'
   resourcePrefix 'ms__'
 
   defaultConfig {
@@ -16,8 +16,4 @@ dependencies {
   compile 'com.android.support:support-annotations:24.2.1'
 }
 
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
-
-afterEvaluate {
-  androidJavadocs.classpath += project.android.libraryVariants.toList().first().javaCompile.classpath
-}
+apply from: rootProject.file('gradle/maven-push.gradle')
