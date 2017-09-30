@@ -191,7 +191,21 @@ public class MaterialSpinner extends TextView {
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     popupWindow.setWidth(MeasureSpec.getSize(widthMeasureSpec));
     popupWindow.setHeight(calculatePopupWindowHeight());
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    if (adapter != null) {
+      CharSequence currentText = getText();
+      String longestItem = currentText.toString();
+      for (int i = 0; i < adapter.getCount(); i++) {
+        String itemText = adapter.getItemText(i);
+        if (itemText.length() > longestItem.length()) {
+          longestItem = itemText;
+        }
+      }
+      setText(longestItem);
+      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+      setText(currentText);
+    } else {
+      super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
   }
 
   @Override public boolean onTouchEvent(@NonNull MotionEvent event) {

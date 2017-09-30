@@ -60,8 +60,12 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
     } else {
       textView = ((ViewHolder) convertView.getTag()).textView;
     }
-    textView.setText(getItem(position).toString());
+    textView.setText(getItemText(position));
     return convertView;
+  }
+
+  public String getItemText(int position) {
+    return getItem(position).toString();
   }
 
   public int getSelectedIndex() {
