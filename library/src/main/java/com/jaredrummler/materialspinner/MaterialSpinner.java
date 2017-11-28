@@ -478,7 +478,7 @@ public class MaterialSpinner extends TextView {
         && popupWindowHeight <= listViewHeight) {
       return popupWindowHeight;
     }
-    return WindowManager.LayoutParams.WRAP_CONTENT;
+    return (int) listViewHeight;
   }
 
   /**
