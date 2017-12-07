@@ -138,7 +138,7 @@ public class MaterialSpinner extends TextView {
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position >= selectedIndex && position < adapter.getCount()) {
+        if (position >= selectedIndex && position < adapter.getCount() && adapter.getItems().size() != 1) {
           position++;
         }
         selectedIndex = position;
@@ -398,7 +398,7 @@ public class MaterialSpinner extends TextView {
     if (selectedIndex >= adapter.getCount()) {
       selectedIndex = 0;
     }
-    if (adapter.getCount() > 0) {
+    if (adapter.getItems().size() > 0) {
       setText(adapter.get(selectedIndex).toString());
     } else {
       setText("");
@@ -470,13 +470,16 @@ public class MaterialSpinner extends TextView {
     if (adapter == null) {
       return WindowManager.LayoutParams.WRAP_CONTENT;
     }
-    float listViewHeight = adapter.getCount() * getResources().getDimension(R.dimen.ms__item_height);
+    float itemHeight = getResources().getDimension(R.dimen.ms__item_height);
+    float listViewHeight = adapter.getCount() * itemHeight;
     if (popupWindowMaxHeight > 0 && listViewHeight > popupWindowMaxHeight) {
       return popupWindowMaxHeight;
     } else if (popupWindowHeight != WindowManager.LayoutParams.MATCH_PARENT
         && popupWindowHeight != WindowManager.LayoutParams.WRAP_CONTENT
         && popupWindowHeight <= listViewHeight) {
       return popupWindowHeight;
+    } else if (listViewHeight == 0 && adapter.getItems().size() == 1) {
+      return (int) itemHeight;
     }
     return (int) listViewHeight;
   }

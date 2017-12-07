@@ -18,7 +18,6 @@
 package com.jaredrummler.materialspinner;
 
 import android.content.Context;
-
 import java.util.List;
 
 public class MaterialSpinnerAdapter<T> extends MaterialSpinnerBaseAdapter {
@@ -31,11 +30,13 @@ public class MaterialSpinnerAdapter<T> extends MaterialSpinnerBaseAdapter {
   }
 
   @Override public int getCount() {
-    return items.size() - 1;
+    int size = items.size();
+    if (size == 1) return size;
+    return size - 1;
   }
 
   @Override public T getItem(int position) {
-    if (position >= getSelectedIndex()) {
+    if (position >= getSelectedIndex() && items.size() != 1) {
       return items.get(position + 1);
     } else {
       return items.get(position);
@@ -49,5 +50,4 @@ public class MaterialSpinnerAdapter<T> extends MaterialSpinnerBaseAdapter {
   @Override public List<T> getItems() {
     return items;
   }
-
 }
