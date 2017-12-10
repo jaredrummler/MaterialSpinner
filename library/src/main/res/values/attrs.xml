@@ -29,5 +29,7 @@
       <enum name="wrap_content" value="-2"/>
     </attr>
     <attr name="ms_background_selector" format="integer"/>
+    <attr name="ms_hint" format="string" />
+    <attr name="ms_hint_color" format="color"/>
   </declare-styleable>
 </resources>
