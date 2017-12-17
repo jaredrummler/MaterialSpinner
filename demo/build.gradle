@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion '26.0.2'
+  compileSdkVersion 27
+  buildToolsVersion '27.0.0'
 
   defaultConfig {
     applicationId "com.jaredrummler.materialspinner.example"
     minSdkVersion 14
-    targetSdkVersion 26
+    targetSdkVersion 27
   }
   buildTypes {
     release {
@@ -21,6 +21,6 @@ android {
 }
 
 dependencies {
-  compile 'com.android.support:design:26.0.2'
+  compile 'com.android.support:design:27.0.2'
   compile project(':library')
 }
