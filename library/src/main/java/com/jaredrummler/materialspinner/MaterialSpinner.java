@@ -32,6 +32,7 @@ import android.os.Parcelable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -279,7 +280,7 @@ public class MaterialSpinner extends TextView {
       selectedIndex = bundle.getInt("selected_index");
       nothingSelected = bundle.getBoolean("nothing_selected");
       if (adapter != null) {
-        if (nothingSelected && !hintText.isEmpty()) {
+        if (nothingSelected && !TextUtils.isEmpty(hintText)) {
           setHintColor(hintColor);
           setText(hintText);
         } else {
@@ -419,7 +420,7 @@ public class MaterialSpinner extends TextView {
       selectedIndex = 0;
     }
     if (adapter.getItems().size() > 0) {
-      if (nothingSelected && !hintText.isEmpty()) {
+      if (nothingSelected && !TextUtils.isEmpty(hintText)) {
         setText(hintText);
         setHintColor(hintColor);
       } else {
