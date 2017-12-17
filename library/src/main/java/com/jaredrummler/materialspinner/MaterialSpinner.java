@@ -68,6 +68,8 @@ public class MaterialSpinner extends TextView {
   private int arrowColor;
   private int arrowColorDisabled;
   private int textColor;
+  private int hintColor;
+  private String hintText;
 
   public MaterialSpinner(Context context) {
     super(context);
@@ -93,15 +95,19 @@ public class MaterialSpinner extends TextView {
       backgroundColor = ta.getColor(R.styleable.MaterialSpinner_ms_background_color, Color.WHITE);
       backgroundSelector = ta.getResourceId(R.styleable.MaterialSpinner_ms_background_selector, 0);
       textColor = ta.getColor(R.styleable.MaterialSpinner_ms_text_color, defaultColor);
+      hintColor = ta.getColor(R.styleable.MaterialSpinner_ms_hint_color, defaultColor);
       arrowColor = ta.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
       hideArrow = ta.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
+      hintText = ta.getString(R.styleable.MaterialSpinner_ms_hint) == null ? "" : ta.getString(R.styleable.MaterialSpinner_ms_hint);
       popupWindowMaxHeight = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_dropdown_max_height, 0);
       popupWindowHeight = ta.getLayoutDimension(R.styleable.MaterialSpinner_ms_dropdown_height,
-          WindowManager.LayoutParams.WRAP_CONTENT);
+              WindowManager.LayoutParams.WRAP_CONTENT);
       arrowColorDisabled = Utils.lighter(arrowColor, 0.8f);
     } finally {
       ta.recycle();
     }
+
+    nothingSelected = true;
 
     Resources resources = getResources();
     int left, right, bottom, top;
@@ -145,6 +151,7 @@ public class MaterialSpinner extends TextView {
         nothingSelected = false;
         Object item = adapter.get(position);
         adapter.notifyItemSelected(position);
+        setTextColor(textColor);
         setText(item.toString());
         collapse();
         if (onItemSelectedListener != null) {
@@ -247,10 +254,16 @@ public class MaterialSpinner extends TextView {
     super.setTextColor(color);
   }
 
+  public void setHintColor(int color) {
+    hintColor = color;
+    super.setTextColor(color);
+  }
+
   @Override public Parcelable onSaveInstanceState() {
     Bundle bundle = new Bundle();
     bundle.putParcelable("state", super.onSaveInstanceState());
     bundle.putInt("selected_index", selectedIndex);
+    bundle.putBoolean("nothing_selected", nothingSelected);
     if (popupWindow != null) {
       bundle.putBoolean("is_popup_showing", popupWindow.isShowing());
       collapse();
@@ -264,8 +277,15 @@ public class MaterialSpinner extends TextView {
     if (savedState instanceof Bundle) {
       Bundle bundle = (Bundle) savedState;
       selectedIndex = bundle.getInt("selected_index");
+      nothingSelected = bundle.getBoolean("nothing_selected");
       if (adapter != null) {
-        setText(adapter.get(selectedIndex).toString());
+        if (nothingSelected && !hintText.isEmpty()) {
+          setHintColor(hintColor);
+          setText(hintText);
+        } else {
+          setTextColor(textColor);
+          setText(adapter.get(selectedIndex).toString());
+        }
         adapter.notifyItemSelected(selectedIndex);
       }
       if (bundle.getBoolean("is_popup_showing")) {
@@ -399,7 +419,13 @@ public class MaterialSpinner extends TextView {
       selectedIndex = 0;
     }
     if (adapter.getItems().size() > 0) {
-      setText(adapter.get(selectedIndex).toString());
+      if (nothingSelected && !hintText.isEmpty()) {
+        setText(hintText);
+        setHintColor(hintColor);
+      } else {
+        setTextColor(textColor);
+        setText(adapter.get(selectedIndex).toString());
+      }
     } else {
       setText("");
     }
