@@ -35,6 +35,7 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
   private int selectedIndex;
   private int textColor;
   private int backgroundSelector;
+  private boolean isHintEnabled;
 
   public MaterialSpinnerBaseAdapter(Context context) {
     this.context = context;
@@ -87,6 +88,14 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
   public abstract T get(int position);
 
   public abstract List<T> getItems();
+
+  public void setHintEnabled(boolean isHintEnabled){
+    this.isHintEnabled = isHintEnabled;
+  }
+
+  public boolean isHintEnabled(){
+    return this.isHintEnabled;
+  }
 
   public MaterialSpinnerBaseAdapter<T> setTextColor(@ColorInt int textColor) {
     this.textColor = textColor;
