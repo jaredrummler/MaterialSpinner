@@ -19,7 +19,6 @@ package com.jaredrummler.materialspinner;
 
 import android.content.Context;
 import android.widget.ListAdapter;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +54,4 @@ final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
     }
     return items;
   }
-
 }

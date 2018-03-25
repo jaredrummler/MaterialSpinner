@@ -17,8 +17,8 @@
   -->
 
 <TextView
-    android:id="@+id/tv_tinted_spinner"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_tinted_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="start|center_vertical"
@@ -30,5 +30,6 @@
     android:paddingRight="@dimen/ms__popup_padding_left"
     android:paddingStart="@dimen/ms__popup_padding_left"
     android:paddingTop="@dimen/ms__popup_padding_top"
-    android:singleLine="true"/>
+    android:singleLine="true"
+    />
 

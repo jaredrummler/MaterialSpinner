@@ -18,18 +18,18 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
   <declare-styleable name="MaterialSpinner" tools:ignore="ResourceName">
-    <attr name="ms_arrow_tint" format="color"/>
-    <attr name="ms_hide_arrow" format="boolean"/>
-    <attr name="ms_background_color" format="color"/>
-    <attr name="ms_text_color" format="color"/>
-    <attr name="ms_dropdown_max_height" format="dimension"/>
-    <attr name="ms_dropdown_height" format="dimension">
+    <attr format="color" name="ms_arrow_tint"/>
+    <attr format="boolean" name="ms_hide_arrow"/>
+    <attr format="color" name="ms_background_color"/>
+    <attr format="color" name="ms_text_color"/>
+    <attr format="dimension" name="ms_dropdown_max_height"/>
+    <attr format="dimension" name="ms_dropdown_height">
       <enum name="fill_parent" value="-1"/>
       <enum name="match_parent" value="-1"/>
       <enum name="wrap_content" value="-2"/>
     </attr>
-    <attr name="ms_background_selector" format="integer"/>
-    <attr name="ms_hint" format="string" />
-    <attr name="ms_hint_color" format="color"/>
+    <attr format="integer" name="ms_background_selector"/>
+    <attr format="string" name="ms_hint"/>
+    <attr format="color" name="ms_hint_color"/>
   </declare-styleable>
 </resources>

@@ -99,10 +99,11 @@ public class MaterialSpinner extends TextView {
       hintColor = ta.getColor(R.styleable.MaterialSpinner_ms_hint_color, defaultColor);
       arrowColor = ta.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
       hideArrow = ta.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
-      hintText = ta.getString(R.styleable.MaterialSpinner_ms_hint) == null ? "" : ta.getString(R.styleable.MaterialSpinner_ms_hint);
+      hintText = ta.getString(R.styleable.MaterialSpinner_ms_hint) == null ? ""
+          : ta.getString(R.styleable.MaterialSpinner_ms_hint);
       popupWindowMaxHeight = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_dropdown_max_height, 0);
       popupWindowHeight = ta.getLayoutDimension(R.styleable.MaterialSpinner_ms_dropdown_height,
-              WindowManager.LayoutParams.WRAP_CONTENT);
+          WindowManager.LayoutParams.WRAP_CONTENT);
       arrowColorDisabled = Utils.lighter(arrowColor, 0.8f);
     } finally {
       ta.recycle();
@@ -145,7 +146,10 @@ public class MaterialSpinner extends TextView {
     listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position >= selectedIndex && position < adapter.getCount() && adapter.getItems().size() != 1 && TextUtils.isEmpty(hintText)) {
+        if (position >= selectedIndex
+            && position < adapter.getCount()
+            && adapter.getItems().size() != 1
+            && TextUtils.isEmpty(hintText)) {
           position++;
         }
         selectedIndex = position;
