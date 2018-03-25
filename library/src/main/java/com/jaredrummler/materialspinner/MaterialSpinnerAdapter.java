@@ -30,25 +30,18 @@ public class MaterialSpinnerAdapter<T> extends MaterialSpinnerBaseAdapter {
   }
 
   @Override public int getCount() {
-    if (isHintEnabled()){
-      return items.size();
-    }else{
-      int size = items.size();
-      if (size == 1) return size;
-      return size - 1;
-    }
+    int size = items.size();
+    if (size == 1 || isHintEnabled()) return size;
+    return size - 1;
   }
 
   @Override public T getItem(int position) {
     if (isHintEnabled()){
       return items.get(position);
-
-    }else{
-      if (position >= getSelectedIndex() && items.size() != 1) {
+    }else if (position >= getSelectedIndex() && items.size() != 1) {
       return items.get(position + 1);
     } else {
       return items.get(position);
-    }
     }
   }
 
