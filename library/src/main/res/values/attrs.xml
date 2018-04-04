@@ -29,6 +29,14 @@
       <enum name="wrap_content" value="-2"/>
     </attr>
     <attr format="integer" name="ms_background_selector"/>
+    <attr format="dimension" name="ms_padding_top"/>
+    <attr format="dimension" name="ms_padding_left"/>
+    <attr format="dimension" name="ms_padding_bottom"/>
+    <attr format="dimension" name="ms_padding_right"/>
+    <attr format="dimension" name="ms_popup_padding_top"/>
+    <attr format="dimension" name="ms_popup_padding_left"/>
+    <attr format="dimension" name="ms_popup_padding_bottom"/>
+    <attr format="dimension" name="ms_popup_padding_right"/>
     <attr format="string" name="ms_hint"/>
     <attr format="color" name="ms_hint_color"/>
   </declare-styleable>
