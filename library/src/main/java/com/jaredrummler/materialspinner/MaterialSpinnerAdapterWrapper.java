@@ -32,11 +32,15 @@ final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
   }
 
   @Override public int getCount() {
-    return listAdapter.getCount() - 1;
+    int size = listAdapter.getCount();
+    if (size == 1 || isHintEnabled()) return size;
+    return size - 1;
   }
 
   @Override public Object getItem(int position) {
-    if (position >= getSelectedIndex()) {
+    if (isHintEnabled()) {
+      return listAdapter.getItem(position);
+    } else if (position >= getSelectedIndex() && listAdapter.getCount() != 1) {
       return listAdapter.getItem(position + 1);
     } else {
       return listAdapter.getItem(position);
@@ -49,8 +53,8 @@ final class MaterialSpinnerAdapterWrapper extends MaterialSpinnerBaseAdapter {
 
   @Override public List<Object> getItems() {
     List<Object> items = new ArrayList<>();
-    for (int i = 0; i < getCount(); i++) {
-      items.add(getItem(i));
+    for (int i = 0; i < listAdapter.getCount(); i++) {
+      items.add(listAdapter.getItem(i));
     }
     return items;
   }
