@@ -405,9 +405,28 @@ public class MaterialSpinner extends TextView {
    * @param <T> The item type
    */
   public <T> void setItems(@NonNull List<T> items) {
-    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setPopupPadding(popupPaddingLeft, popupPaddingTop,
-        popupPaddingRight, popupPaddingBottom).setBackgroundSelector(backgroundSelector).setTextColor(textColor);
-    setAdapterInternal(adapter);
+    setAdapterInternal(new MaterialSpinnerAdapter<>(getContext(), items)
+        .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+        .setBackgroundSelector(backgroundSelector)
+        .setTextColor(textColor)
+    );
+  }
+
+  /**
+   * Set a custom adapter for the dropdown items
+   *
+   * @param adapter The list adapter
+   */
+  public void setAdapter(@NonNull ListAdapter adapter) {
+    boolean shouldReset = this.adapter != null;
+    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter)
+        .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+        .setBackgroundSelector(backgroundSelector)
+        .setTextColor(textColor);
+    setAdapterInternal(this.adapter);
+    if (shouldReset) {
+      popupWindow.setHeight(calculatePopupWindowHeight());
+    }
   }
 
   /**
@@ -422,18 +441,6 @@ public class MaterialSpinner extends TextView {
     }
     //noinspection unchecked
     return adapter.getItems();
-  }
-
-  /**
-   * Set a custom adapter for the dropdown items
-   *
-   * @param adapter The list adapter
-   */
-  public void setAdapter(@NonNull ListAdapter adapter) {
-    this.adapter =
-        new MaterialSpinnerAdapterWrapper(getContext(), adapter).setPopupPadding(popupPaddingLeft, popupPaddingTop,
-            popupPaddingRight, popupPaddingBottom).setBackgroundSelector(backgroundSelector).setTextColor(textColor);
-    setAdapterInternal(this.adapter);
   }
 
   /**
