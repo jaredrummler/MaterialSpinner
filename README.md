@@ -4,7 +4,7 @@
   <a target="_blank" href="https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH"><img src="https://img.shields.io/badge/API-14%2B-blue.svg?style=flat" alt="API" /></a>
   <a target="_blank" href="LICENSE"><img src="http://img.shields.io/:license-apache-blue.svg" alt="License" /></a>
   <a target="_blank" href="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner"><img src="https://maven-badges.herokuapp.com/maven-central/com.jaredrummler/material-spinner/badge.svg" alt="Maven Central" /></a>
-  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Amaterial-spinner%3A1.2.5"><img src="https://img.shields.io/badge/methods-197-e91e63.svg" /></a>
+  <a target="_blank" href="http://www.methodscount.com/?lib=com.jaredrummler%3Amaterial-spinner%3A1.3.0"><img src="https://img.shields.io/badge/methods-197-e91e63.svg" /></a>
   <a target="_blank" href="https://twitter.com/jaredrummler"><img src="https://img.shields.io/twitter/follow/jaredrummler.svg?style=social" /></a>
 </p>
 
@@ -60,17 +60,17 @@ You can add attributes to customize the view. Available attributes:
 Download
 --------
 
-Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.2.5/material-spinner-1.2.5.aar) or grab via Gradle:
+Download [the latest AAR](https://repo1.maven.org/maven2/com/jaredrummler/material-spinner/1.3.0/material-spinner-1.3.0.aar) or grab via Gradle:
 
 ```groovy
-compile 'com.jaredrummler:material-spinner:1.2.5'
+compile 'com.jaredrummler:material-spinner:1.3.0'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.jaredrummler</groupId>
   <artifactId>material-spinner</artifactId>
-  <version>1.2.5</version>
+  <version>1.3.0</version>
   <type>aar</type>
 </dependency>
 ```
