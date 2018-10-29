@@ -405,11 +405,11 @@ public class MaterialSpinner extends TextView {
    * @param <T> The item type
    */
   public <T> void setItems(@NonNull List<T> items) {
-    setAdapterInternal(new MaterialSpinnerAdapter<>(getContext(), items)
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items)
         .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
         .setBackgroundSelector(backgroundSelector)
-        .setTextColor(textColor)
-    );
+        .setTextColor(textColor);
+    setAdapterInternal(adapter);
   }
 
   /**
@@ -418,29 +418,11 @@ public class MaterialSpinner extends TextView {
    * @param adapter The list adapter
    */
   public void setAdapter(@NonNull ListAdapter adapter) {
-    boolean shouldReset = this.adapter != null;
     this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter)
         .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
         .setBackgroundSelector(backgroundSelector)
         .setTextColor(textColor);
     setAdapterInternal(this.adapter);
-    if (shouldReset) {
-      popupWindow.setHeight(calculatePopupWindowHeight());
-    }
-  }
-
-  /**
-   * Get the list of items in the adapter
-   *
-   * @param <T> The item type
-   * @return A list of items or {@code null} if no items are set.
-   */
-  public <T> List<T> getItems() {
-    if (adapter == null) {
-      return null;
-    }
-    //noinspection unchecked
-    return adapter.getItems();
   }
 
   /**
@@ -458,6 +440,7 @@ public class MaterialSpinner extends TextView {
   }
 
   private void setAdapterInternal(@NonNull MaterialSpinnerBaseAdapter adapter) {
+    boolean shouldResetPopupHeight = listView.getAdapter() != null;
     adapter.setHintEnabled(!TextUtils.isEmpty(hintText));
     listView.setAdapter(adapter);
     if (selectedIndex >= adapter.getCount()) {
@@ -474,6 +457,23 @@ public class MaterialSpinner extends TextView {
     } else {
       setText("");
     }
+    if (shouldResetPopupHeight) {
+      popupWindow.setHeight(calculatePopupWindowHeight());
+    }
+  }
+
+  /**
+   * Get the list of items in the adapter
+   *
+   * @param <T> The item type
+   * @return A list of items or {@code null} if no items are set.
+   */
+  public <T> List<T> getItems() {
+    if (adapter == null) {
+      return null;
+    }
+    //noinspection unchecked
+    return adapter.getItems();
   }
 
   /**
