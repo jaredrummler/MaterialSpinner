@@ -20,14 +20,13 @@ package com.jaredrummler.materialspinner;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
-import androidx.annotation.ColorInt;
-import androidx.annotation.DrawableRes;
-import androidx.annotation.DimenRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
 import java.util.List;
 
 public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
@@ -54,39 +53,40 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
       textView.setTextColor(textColor);
 
-      int left, right, bottom, top;
-      if(popupPaddingTop != -1)
-      {
-        left = textView.getPaddingLeft();
-        right = textView.getPaddingRight();
-        bottom = textView.getPaddingBottom();
-
-        textView.setPadding(left, popupPaddingTop, right, bottom);
-      }
-
-      if (popupPaddingLeft != -1) {
-        top = textView.getPaddingTop();
-        right = textView.getPaddingRight();
-        bottom = textView.getPaddingBottom();
-
-        textView.setPadding(popupPaddingLeft, top, right, bottom);
-      }
-
-      if (popupPaddingBottom != -1) {
-        left = textView.getPaddingLeft();
-        top = textView.getPaddingTop();
-        right = textView.getPaddingRight();
-
-        textView.setPadding(left, top, right, popupPaddingBottom);
-      }
-
-      if (popupPaddingRight != -1) {
-        left = textView.getPaddingLeft();
-        top = textView.getPaddingTop();
-        bottom = textView.getPaddingBottom();
-
-        textView.setPadding(left, top, popupPaddingRight, bottom);
-      }
+      textView.setPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom);
+//
+//      int left, right, bottom, top;
+//      if (popupPaddingTop != -1) {
+//        left = textView.getPaddingLeft();
+//        right = textView.getPaddingRight();
+//        bottom = textView.getPaddingBottom();
+//
+//        textView.setPadding(left, popupPaddingTop, right, bottom);
+//      }
+//
+//      if (popupPaddingLeft != -1) {
+//        top = textView.getPaddingTop();
+//        right = textView.getPaddingRight();
+//        bottom = textView.getPaddingBottom();
+//
+//        textView.setPadding(popupPaddingLeft, top, right, bottom);
+//      }
+//
+//      if (popupPaddingBottom != -1) {
+//        left = textView.getPaddingLeft();
+//        top = textView.getPaddingTop();
+//        right = textView.getPaddingRight();
+//
+//        textView.setPadding(left, top, right, popupPaddingBottom);
+//      }
+//
+//      if (popupPaddingRight != -1) {
+//        left = textView.getPaddingLeft();
+//        top = textView.getPaddingTop();
+//        bottom = textView.getPaddingBottom();
+//
+//        textView.setPadding(left, top, popupPaddingRight, bottom);
+//      }
 
       if (backgroundSelector != 0) {
         textView.setBackgroundResource(backgroundSelector);
@@ -147,23 +147,11 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
     return this;
   }
 
-  public MaterialSpinnerBaseAdapter<T> setPopupPaddingTop(@DimenRes int popupPaddingTop) {
-    this.popupPaddingTop = popupPaddingTop;
-    return this;
-  }
-
-  public MaterialSpinnerBaseAdapter<T> setPopupPaddingLeft(@DimenRes int popupPaddingLeft) {
-    this.popupPaddingLeft = popupPaddingLeft;
-    return this;
-  }
-
-  public MaterialSpinnerBaseAdapter<T> setPopupPaddingBottom(@DimenRes int popupPaddingBottom) {
-    this.popupPaddingBottom = popupPaddingBottom;
-    return this;
-  }
-
-  public MaterialSpinnerBaseAdapter<T> setPopupPaddingRight(@DimenRes int popupPaddingRight) {
-    this.popupPaddingRight = popupPaddingRight;
+  public MaterialSpinnerBaseAdapter<T> setPopupPadding(int left, int top, int right, int bottom) {
+    this.popupPaddingLeft = left;
+    this.popupPaddingTop = top;
+    this.popupPaddingRight = right;
+    this.popupPaddingBottom = bottom;
     return this;
   }
 
