@@ -22,6 +22,7 @@ import android.content.res.Configuration;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.DimenRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,10 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
   private int selectedIndex;
   private int textColor;
   private int backgroundSelector;
+  private int popupPaddingTop;
+  private int popupPaddingLeft;
+  private int popupPaddingBottom;
+  private int popupPaddingRight;
   private boolean isHintEnabled;
 
   public MaterialSpinnerBaseAdapter(Context context) {
@@ -48,6 +53,41 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
       convertView = inflater.inflate(R.layout.ms__list_item, parent, false);
       textView = (TextView) convertView.findViewById(R.id.tv_tinted_spinner);
       textView.setTextColor(textColor);
+
+      int left, right, bottom, top;
+      if(popupPaddingTop != -1)
+      {
+        left = textView.getPaddingLeft();
+        right = textView.getPaddingRight();
+        bottom = textView.getPaddingBottom();
+
+        textView.setPadding(left, popupPaddingTop, right, bottom);
+      }
+
+      if (popupPaddingLeft != -1) {
+        top = textView.getPaddingTop();
+        right = textView.getPaddingRight();
+        bottom = textView.getPaddingBottom();
+
+        textView.setPadding(popupPaddingLeft, top, right, bottom);
+      }
+
+      if (popupPaddingBottom != -1) {
+        left = textView.getPaddingLeft();
+        top = textView.getPaddingTop();
+        right = textView.getPaddingRight();
+
+        textView.setPadding(left, top, right, popupPaddingBottom);
+      }
+
+      if (popupPaddingRight != -1) {
+        left = textView.getPaddingLeft();
+        top = textView.getPaddingTop();
+        bottom = textView.getPaddingBottom();
+
+        textView.setPadding(left, top, popupPaddingRight, bottom);
+      }
+
       if (backgroundSelector != 0) {
         textView.setBackgroundResource(backgroundSelector);
       }
@@ -104,6 +144,26 @@ public abstract class MaterialSpinnerBaseAdapter<T> extends BaseAdapter {
 
   public MaterialSpinnerBaseAdapter<T> setBackgroundSelector(@DrawableRes int backgroundSelector) {
     this.backgroundSelector = backgroundSelector;
+    return this;
+  }
+
+  public MaterialSpinnerBaseAdapter<T> setPopupPaddingTop(@DimenRes int popupPaddingTop) {
+    this.popupPaddingTop = popupPaddingTop;
+    return this;
+  }
+
+  public MaterialSpinnerBaseAdapter<T> setPopupPaddingLeft(@DimenRes int popupPaddingLeft) {
+    this.popupPaddingLeft = popupPaddingLeft;
+    return this;
+  }
+
+  public MaterialSpinnerBaseAdapter<T> setPopupPaddingBottom(@DimenRes int popupPaddingBottom) {
+    this.popupPaddingBottom = popupPaddingBottom;
+    return this;
+  }
+
+  public MaterialSpinnerBaseAdapter<T> setPopupPaddingRight(@DimenRes int popupPaddingRight) {
+    this.popupPaddingRight = popupPaddingRight;
     return this;
   }
 

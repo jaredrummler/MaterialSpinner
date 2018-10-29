@@ -39,15 +39,23 @@ spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<Str
 
 You can add attributes to customize the view. Available attributes:
 
-| name                   | type      | info                                                   |
-|------------------------|-----------|--------------------------------------------------------|
-| ms_arrow_tint          | color     | sets the color on the drop-down arrow                  |
-| ms_hide_arrow          | boolean   | set to true to hide the arrow drawable                 |
-| ms_background_color    | color     | set the background color for the spinner and drop-down |
-| ms_background_selector | integer   | set the background resource for the dropdown items     |
-| ms_text_color          | color     | set the text color                                     |
-| ms_dropdown_max_height | dimension | set the max height of the drop-down                    |
-| ms_dropdown_height     | dimension | set the height of the drop-down                        |
+| name                    | type      | info                                                   |
+|-------------------------|-----------|--------------------------------------------------------|
+| ms_arrow_tint           | color     | sets the color on the drop-down arrow                  |
+| ms_hide_arrow           | boolean   | set to true to hide the arrow drawable                 |
+| ms_background_color     | color     | set the background color for the spinner and drop-down |
+| ms_background_selector  | integer   | set the background resource for the dropdown items     |
+| ms_text_color           | color     | set the text color                                     |
+| ms_dropdown_max_height  | dimension | set the max height of the drop-down                    |
+| ms_dropdown_height      | dimension | set the height of the drop-down                        |
+| ms_padding_top          | dimension | set the top padding of the drop-down                   |
+| ms_padding_left         | dimension | set the left padding of the drop-down                  |
+| ms_padding_bottom       | dimension | set the bottom padding of the drop-down                |
+| ms_padding_right        | dimension | set the right padding of the drop-down                 |
+| ms_popup_padding_top    | dimension | set the top padding of the drop-down items             |
+| ms_popup_padding_left   | dimension | set the left padding of the drop-down items            |
+| ms_popup_padding_bottom | dimension | set the bottom padding of the drop-down items          |
+| ms_popup_padding_right  | dimension | set the right padding of the drop-down items           |
 
 Download
 --------
