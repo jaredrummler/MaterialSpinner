@@ -282,6 +282,10 @@ public class MaterialSpinner extends TextView {
 
   @Override public void setTextColor(int color) {
     textColor = color;
+    if (adapter != null) {
+      adapter.setTextColor(textColor);
+      adapter.notifyDataSetChanged();
+    }
     super.setTextColor(color);
   }
 
