@@ -18,7 +18,9 @@
 package com.jaredrummler.materialspinner;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -108,10 +110,9 @@ public class MaterialSpinner extends TextView {
     } else {
       defaultPaddingLeft = resources.getDimensionPixelSize(R.dimen.ms__padding_left);
     }
-    defaultPopupPaddingLeft = defaultPopupPaddingRight
-        = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_left);
-    defaultPopupPaddingTop = defaultPopupPaddingBottom
-        = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_top);
+    defaultPopupPaddingLeft =
+        defaultPopupPaddingRight = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_left);
+    defaultPopupPaddingTop = defaultPopupPaddingBottom = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_top);
 
     try {
       backgroundColor = ta.getColor(R.styleable.MaterialSpinner_ms_background_color, Color.WHITE);
@@ -400,10 +401,8 @@ public class MaterialSpinner extends TextView {
    * @param <T> The item type
    */
   public <T> void setItems(@NonNull List<T> items) {
-    adapter = new MaterialSpinnerAdapter<>(getContext(), items)
-        .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
-        .setBackgroundSelector(backgroundSelector)
-        .setTextColor(textColor);
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items).setPopupPadding(popupPaddingLeft, popupPaddingTop,
+        popupPaddingRight, popupPaddingBottom).setBackgroundSelector(backgroundSelector).setTextColor(textColor);
     setAdapterInternal(adapter);
   }
 
@@ -427,10 +426,9 @@ public class MaterialSpinner extends TextView {
    * @param adapter The list adapter
    */
   public void setAdapter(@NonNull ListAdapter adapter) {
-    this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter)
-        .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
-        .setBackgroundSelector(backgroundSelector)
-        .setTextColor(textColor);
+    this.adapter =
+        new MaterialSpinnerAdapterWrapper(getContext(), adapter).setPopupPadding(popupPaddingLeft, popupPaddingTop,
+            popupPaddingRight, popupPaddingBottom).setBackgroundSelector(backgroundSelector).setTextColor(textColor);
     setAdapterInternal(this.adapter);
   }
 
@@ -471,11 +469,13 @@ public class MaterialSpinner extends TextView {
    * Show the dropdown menu
    */
   public void expand() {
-    if (!hideArrow) {
-      animateArrow(true);
+    if (canShowPopup()) {
+      if (!hideArrow) {
+        animateArrow(true);
+      }
+      nothingSelected = true;
+      popupWindow.showAsDropDown(this);
     }
-    nothingSelected = true;
-    popupWindow.showAsDropDown(this);
   }
 
   /**
@@ -499,6 +499,31 @@ public class MaterialSpinner extends TextView {
     if (arrowDrawable != null) {
       arrowDrawable.setColorFilter(arrowColor, PorterDuff.Mode.SRC_IN);
     }
+  }
+
+  private boolean canShowPopup() {
+    Activity activity = getActivity();
+    if (activity == null || activity.isFinishing()) {
+      return false;
+    }
+    boolean isLaidOut;
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      isLaidOut = isLaidOut();
+    } else {
+      isLaidOut = getWidth() > 0 && getHeight() > 0;
+    }
+    return isLaidOut;
+  }
+
+  private Activity getActivity() {
+    Context context = getContext();
+    while (context instanceof ContextWrapper) {
+      if (context instanceof Activity) {
+        return (Activity) context;
+      }
+      context = ((ContextWrapper) context).getBaseContext();
+    }
+    return null;
   }
 
   private void animateArrow(boolean shouldRotateUp) {
