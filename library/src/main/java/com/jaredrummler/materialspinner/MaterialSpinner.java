@@ -158,11 +158,13 @@ public class MaterialSpinner extends TextView {
     if (!hideArrow) {
       arrowDrawable = Utils.getDrawable(context, R.drawable.ms__arrow).mutate();
       arrowDrawable.setColorFilter(arrowColor, PorterDuff.Mode.SRC_IN);
+      Drawable[] drawables = getCompoundDrawables();
       if (rtl) {
-        setCompoundDrawablesWithIntrinsicBounds(arrowDrawable, null, null, null);
+        drawables[0] = arrowDrawable;
       } else {
-        setCompoundDrawablesWithIntrinsicBounds(null, null, arrowDrawable, null);
+        drawables[2] = arrowDrawable;
       }
+      setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawables[2], drawables[3]);
     }
 
     listView = new ListView(context);
