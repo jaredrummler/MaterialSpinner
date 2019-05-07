@@ -104,14 +104,14 @@ public class MaterialSpinner extends TextView {
 
     Resources resources = getResources();
     defaultPaddingLeft = defaultPaddingRight =
-        defaultPaddingBottom = defaultPaddingTop = resources.getDimensionPixelSize(R.dimen.ms__padding_top);
+            defaultPaddingBottom = defaultPaddingTop = resources.getDimensionPixelSize(R.dimen.ms__padding_top);
     if (rtl) {
       defaultPaddingRight = resources.getDimensionPixelSize(R.dimen.ms__padding_left);
     } else {
       defaultPaddingLeft = resources.getDimensionPixelSize(R.dimen.ms__padding_left);
     }
     defaultPopupPaddingLeft =
-        defaultPopupPaddingRight = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_left);
+            defaultPopupPaddingRight = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_left);
     defaultPopupPaddingTop = defaultPopupPaddingBottom = resources.getDimensionPixelSize(R.dimen.ms__popup_padding_top);
 
     try {
@@ -122,22 +122,22 @@ public class MaterialSpinner extends TextView {
       arrowColor = ta.getColor(R.styleable.MaterialSpinner_ms_arrow_tint, textColor);
       hideArrow = ta.getBoolean(R.styleable.MaterialSpinner_ms_hide_arrow, false);
       hintText = ta.getString(R.styleable.MaterialSpinner_ms_hint) == null ? ""
-          : ta.getString(R.styleable.MaterialSpinner_ms_hint);
+              : ta.getString(R.styleable.MaterialSpinner_ms_hint);
       popupWindowMaxHeight = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_dropdown_max_height, 0);
       popupWindowHeight = ta.getLayoutDimension(R.styleable.MaterialSpinner_ms_dropdown_height,
-          WindowManager.LayoutParams.WRAP_CONTENT);
+              WindowManager.LayoutParams.WRAP_CONTENT);
       paddingTop = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_padding_top, defaultPaddingTop);
       paddingLeft = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_padding_left, defaultPaddingLeft);
       paddingBottom = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_padding_bottom, defaultPaddingBottom);
       paddingRight = ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_padding_right, defaultPaddingRight);
       popupPaddingTop =
-          ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_top, defaultPopupPaddingTop);
+              ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_top, defaultPopupPaddingTop);
       popupPaddingLeft =
-          ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_left, defaultPopupPaddingLeft);
+              ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_left, defaultPopupPaddingLeft);
       popupPaddingBottom =
-          ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_bottom, defaultPopupPaddingBottom);
+              ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_bottom, defaultPopupPaddingBottom);
       popupPaddingRight =
-          ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_right, defaultPopupPaddingRight);
+              ta.getDimensionPixelSize(R.styleable.MaterialSpinner_ms_popup_padding_right, defaultPopupPaddingRight);
       arrowColorDisabled = Utils.lighter(arrowColor, 0.8f);
     } finally {
       ta.recycle();
@@ -175,9 +175,9 @@ public class MaterialSpinner extends TextView {
 
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (position >= selectedIndex
-            && position < adapter.getCount()
-            && adapter.getItems().size() != 1
-            && TextUtils.isEmpty(hintText)) {
+                && position < adapter.getCount()
+                && adapter.getItems().size() != 1
+                && TextUtils.isEmpty(hintText)) {
           position++;
         }
         selectedIndex = position;
@@ -408,9 +408,25 @@ public class MaterialSpinner extends TextView {
    */
   public <T> void setItems(@NonNull List<T> items) {
     adapter = new MaterialSpinnerAdapter<>(getContext(), items)
-        .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
-        .setBackgroundSelector(backgroundSelector)
-        .setTextColor(textColor);
+            .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+            .setBackgroundSelector(backgroundSelector)
+            .setTextColor(textColor);
+    setAdapterInternal(adapter);
+  }
+
+  /**
+   * Set the dropdown items with a custom text alignment
+   *
+   * @param items A list of items
+   * @param <T> The item type
+   * @param textAlignment The alignment for the textView of items in the popup window
+   */
+  public <T> void setItems(@NonNull List<T> items, @NonNull int textAlignment) {
+    adapter = new MaterialSpinnerAdapter<>(getContext(), items)
+            .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+            .setBackgroundSelector(backgroundSelector)
+            .setTextAlignment(textAlignment)
+            .setTextColor(textColor);
     setAdapterInternal(adapter);
   }
 
@@ -421,9 +437,9 @@ public class MaterialSpinner extends TextView {
    */
   public void setAdapter(@NonNull ListAdapter adapter) {
     this.adapter = new MaterialSpinnerAdapterWrapper(getContext(), adapter)
-        .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
-        .setBackgroundSelector(backgroundSelector)
-        .setTextColor(textColor);
+            .setPopupPadding(popupPaddingLeft, popupPaddingTop, popupPaddingRight, popupPaddingBottom)
+            .setBackgroundSelector(backgroundSelector)
+            .setTextColor(textColor);
     setAdapterInternal(this.adapter);
   }
 
@@ -575,8 +591,8 @@ public class MaterialSpinner extends TextView {
     if (popupWindowMaxHeight > 0 && listViewHeight > popupWindowMaxHeight) {
       return popupWindowMaxHeight;
     } else if (popupWindowHeight != WindowManager.LayoutParams.MATCH_PARENT
-        && popupWindowHeight != WindowManager.LayoutParams.WRAP_CONTENT
-        && popupWindowHeight <= listViewHeight) {
+            && popupWindowHeight != WindowManager.LayoutParams.WRAP_CONTENT
+            && popupWindowHeight <= listViewHeight) {
       return popupWindowHeight;
     } else if (listViewHeight == 0 && adapter.getItems().size() == 1) {
       return (int) itemHeight;
