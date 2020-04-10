@@ -65,12 +65,17 @@ public class MainActivity extends AppCompatActivity {
 
     MaterialSpinner spinner = (MaterialSpinner) findViewById(R.id.spinner);
     spinner.setItems(ANDROID_VERSIONS);
+
     spinner.setOnItemSelectedListener(new MaterialSpinner.OnItemSelectedListener<String>() {
 
       @Override public void onItemSelected(MaterialSpinner view, int position, long id, String item) {
         Snackbar.make(view, "Clicked " + item, Snackbar.LENGTH_LONG).show();
       }
     });
+
+    // if listener enabled is true You must declare it after setOnItemSelectedListener()
+    spinner.setSelectedIndex(0,true);
+
     spinner.setOnNothingSelectedListener(new MaterialSpinner.OnNothingSelectedListener() {
 
       @Override public void onNothingSelected(MaterialSpinner spinner) {

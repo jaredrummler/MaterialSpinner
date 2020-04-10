@@ -359,13 +359,32 @@ public class MaterialSpinner extends TextView {
    * Set the default spinner item using its index
    *
    * @param position the item's position
+   * @param  listenerEnabled if user set true then listener enable at the first user must declare it after
+   * setItemSelectedListener and if that is false then itemSelectedListener not enabled at the first
    */
-  public void setSelectedIndex(int position) {
+  public void setSelectedIndex(int position,boolean listenerEnabled) {
     if (adapter != null) {
       if (position >= 0 && position <= adapter.getCount()) {
         adapter.notifyItemSelected(position);
         selectedIndex = position;
         setText(adapter.get(position).toString());
+
+        if(listenerEnabled)
+        {
+
+          if(onItemSelectedListener != null)
+          {
+
+            onItemSelectedListener.onItemSelected(MaterialSpinner.this, position,getId(),adapter.get(position));
+          }
+
+          else {
+
+            throw new IllegalStateException("Make listenerEnabled false or declare setSelectedIndex() after setOnItemSelectedListener()");
+          }
+
+        }
+
       } else {
         throw new IllegalArgumentException("Position must be lower than adapter count!");
       }
