@@ -35,6 +35,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -250,15 +251,27 @@ public class MaterialSpinner extends TextView {
 
   @Override public boolean onTouchEvent(@NonNull MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_UP) {
-      if (isEnabled() && isClickable()) {
-        if (!popupWindow.isShowing()) {
-          expand();
-        } else {
-          collapse();
-        }
-      }
+      togglePopup();
     }
     return super.onTouchEvent(event);
+  }
+
+  @Override
+  public boolean onKeyUp(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+      togglePopup();
+    }
+    return super.onKeyUp(keyCode, event);
+  }
+
+  private void togglePopup() {
+    if (isEnabled() && isClickable()) {
+      if (!popupWindow.isShowing()) {
+        expand();
+      } else {
+        collapse();
+      }
+    }
   }
 
   @Override public void setBackgroundColor(int color) {
